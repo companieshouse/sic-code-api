@@ -1,9 +1,7 @@
 #!/bin/bash
 
 #
-# Simple script to recreate your local Mongo Database
-#
-# The datafiles have fields in the first line
+# Simple script to export the sic_code collections
 #
 
 set -o errexit  # abort on nonzero exitstatus
@@ -28,7 +26,7 @@ export_collection() {
     local output_file="${import_files}/${mongo_collection}.json"
 
     echo "Exporting collection ${mongo_collection} to json file ${output_file}"
-    mongoexport --uri="$SIC_CODE_API_MONGO_URL" --db "${SIC_CODE_API_DATABASE}" --collection "${mongo_collection}" --out="${output_file}".json
+    mongoexport --uri="$SIC_CODE_API_MONGO_URL" --db "${SIC_CODE_API_DATABASE}" --collection "${mongo_collection}" --out="${output_file}"
 }
 
 export_collection ch_economic_activity_sic_codes
