@@ -36,7 +36,7 @@ import_csv() {
     fi 
 
     echo "Importing the CSV to Collection ${mongo_collection} with drop option used"
-    mongoimport --db "${SIC_CODE_API_DATABASE}" --collection "${mongo_collection}" --file "${csv_file_full_path}" --drop --type=csv --headerline --columnsHaveTypes
+    mongoimport --uri="$SIC_CODE_API_MONGO_URL" --db "${SIC_CODE_API_DATABASE}" --collection "${mongo_collection}" --file "${csv_file_full_path}" --drop --type=csv --headerline --columnsHaveTypes
 }
 
 create_combined_sic_activites() {
@@ -51,7 +51,7 @@ create_combined_sic_activites() {
     fi 
 
     echo "Creating new combined collection in ${SIC_CODE_API_DATABASE} database"
-    mongo "localhost:27017/${SIC_CODE_API_DATABASE}" "${javascript_file_full_path}"
+    mongo "${SIC_CODE_API_MONGO_URL}/${SIC_CODE_API_DATABASE}" "${javascript_file_full_path}"
 
 }
 
