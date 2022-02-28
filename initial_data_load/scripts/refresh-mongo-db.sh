@@ -10,14 +10,12 @@ set -o errexit # abort on nonzero exitstatus
 set -o pipefail  # don't hide errors within pipes
 
 
-if [[ -z "${SIC_CODE_API_DATABASE}" ]]
-then
+if [[ -z "${SIC_CODE_API_DATABASE}" ]]; then
     echo "ERROR: SIC_CODE_API_DATABASE environmental variable NOT set"
     exit 1
 fi
 
-if [[ -z "${SIC_CODE_API_MONGO_URL}" ]]
-then
+if [[ -z "${SIC_CODE_API_MONGO_URL}" ]]; then
     echo "ERROR: SIC_CODE_API_MONGO_URL environmental variable NOT set"
     exit 1
 fi
@@ -43,8 +41,7 @@ create_combined_sic_activites() {
     local javascript_file=create_combined_sic_activites.js
     local javascript_file_full_path=${script_dir}/${javascript_file}
 
-    if [[ ! -f "${javascript_file_full_path}" ]]
-    then  
+    if [[ ! -f "${javascript_file_full_path}" ]]; then  
         echo "JavaScript file ${javascript_file_full_path} is not found, exiting script"
         exit 1
     fi 
