@@ -1,3 +1,15 @@
+/*
+  This mongo script will recreate the combined_sic_activities collection from:
+  - ons_economic_activity_sic_codes, AND
+  - ch_economic_activity_sic_codes
+
+  Adding additional fields to help the search 
+  - sic_description (from condensed_sic_codes)
+  - is_ch_activity (true if parent is ch_economic_activity_sic_codes)
+  - activity_description_lower_case (lower case of the activity_description field)
+
+
+*/
 
 db.combined_sic_activities.drop()
 

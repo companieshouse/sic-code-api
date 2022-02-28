@@ -25,12 +25,11 @@ fi
 script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 import_csv() {
-    local csv_filename="$1"
-    local mongo_collection="$2"
+    local csv_filename=$1
+    local mongo_collection=$2
 
     local csv_file_full_path=${script_dir}/../datafiles/${csv_filename}
-    if [[ ! -f "${csv_file_full_path}" ]]
-    then  
+    if [[ ! -f "${csv_file_full_path}" ]]; then  
         echo "CSV Input file ${csv_file_full_path} is not found, exiting script"
         exit 1
     fi 

@@ -22,11 +22,11 @@ import_files=${script_dir}/../import_files
 echo "Writing import files to ${import_files}"
 
 export_collection() {
-    local mongo_collection="$1"
-    local output_file="${import_files}/${mongo_collection}.json"
+    local mongo_collection=$1
+    local output_file=${import_files}/${mongo_collection}.json
 
     echo "Exporting collection ${mongo_collection} to json file ${output_file}"
-    mongoexport --uri="$SIC_CODE_API_MONGO_URL" --db "${SIC_CODE_API_DATABASE}" --collection "${mongo_collection}" --out="${output_file}"
+    mongoexport --uri="${SIC_CODE_API_MONGO_URL}" --db "${SIC_CODE_API_DATABASE}" --collection "${mongo_collection}" --out="${output_file}"
 }
 
 export_collection ch_economic_activity_sic_codes
