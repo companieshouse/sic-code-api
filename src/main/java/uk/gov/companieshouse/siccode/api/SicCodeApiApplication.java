@@ -1,4 +1,4 @@
-package uk.gov.companieshouse.siccode.siccodeapi;
+package uk.gov.companieshouse.siccode.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
