@@ -1,0 +1,110 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Sic-Code-API",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://api.chs.local/siccode-api",
+      "description": "Development server"
+    }
+  ],
+  "paths": {
+    "/search": {
+      "post": {
+        "summary": "Search for sic code via economic activity",
+        "operationId": "searchSicCodes",
+        "description": "Return all matching sic code records that correspond with the search terms. This will be ordered by most number of hits (for example, results with 2 keyword matches will be retuned before matches with 1 keyword match)",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "keywords",
+            "description": "Keywords for the economic activities to be used in the search",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "match_all_words",
+            "description": "If true then only return result where all keywords are found",
+            "schema": {
+              "type": "boolean"
+            },
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "context_id",
+            "description": "Unique ID to allow end-to-end logging in systems such as cloud watch (Recomended is `applicationId-uniqueNumber`)",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "search results matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SicCodeFound": {
+        "title": "sic code",
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "62178140e8935f8bdb3c4d62"
+          },
+          "sic_code": {
+            "type": "string",
+            "example": "47910"
+          },
+          "activity_description": {
+            "type": "string",
+            "example": "Selling on Amazon"
+          },
+          "activity_description_lower_case": {
+            "type": "string",
+            "example": "selling on amazon"
+          },
+          "sic_description": {
+            "type": "string",
+            "example": "Retail sale via mail order houses or via Internet"
+          }
+        }
+      },
+      "Result": {
+        "title": "api result",
+        "type": "object",
+        "properties": {
+          "context_id": {
+            "type": "string",
+            "example": "sic-code-web-155982514859810330"
+          },
+          "sic_codes_returned": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SicCodeFound"
+            }
+          }
+        }
+      }
+    }
+  }
+}
