@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "http://api.chs.local/siccode-api",
+      "url": "http://api.chs.local/sic-code-search",
       "description": "Development server"
     }
   ],
