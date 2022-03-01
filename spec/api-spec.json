@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.2",
   "info": {
-    "title": "Sic-Code-API",
+    "title": "sic-Code-api",
     "version": "1.0"
   },
   "servers": [
