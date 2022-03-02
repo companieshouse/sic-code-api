@@ -1,14 +1,10 @@
 package uk.gov.companieshouse.siccode.api.search;
 
-import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -56,8 +52,7 @@ class CombinedSicActivitiesRepositoryTest {
 	public void beforeEach() {
 	
 		var combinedSicActivities = Arrays.asList(BARLEY_FARMING, BARLEY_GROWING, BEAN_GROWING, ARMOURED_CAR_SERVICES, BARLEY_MALTING, BUS_MANUFACTURE);
-		combinedSicActivitiesRepository.saveAll(combinedSicActivities);
-	
+		combinedSicActivitiesRepository.saveAll(combinedSicActivities);	
 	}
 
 	@AfterEach
@@ -67,7 +62,8 @@ class CombinedSicActivitiesRepositoryTest {
 
 	@Test
 	void searchOneItemOrMatch() {
-		var results = combinedSicActivitiesRepository.findByActivityDescriptionLowerCaseRegex("barley");
+		var results = combinedSicActivitiesRepository.findByActivityDescriptionLowerCaseRegex(
+			new SearchRegularExpression("barley", false).getRegularExpression());
 		
 		assertEquals(3, results.size());
 
@@ -76,17 +72,18 @@ class CombinedSicActivitiesRepositoryTest {
 
 	@Test
 	void searchTwoItemOrMatch () {
-		var results = combinedSicActivitiesRepository.findByActivityDescriptionLowerCaseRegex("car|bus");
+		var results = combinedSicActivitiesRepository.findByActivityDescriptionLowerCaseRegex(
+			new SearchRegularExpression("car bus", false).getRegularExpression());
 		
 		assertEquals(2, results.size());
 
 		assertThat(results, containsInAnyOrder(ARMOURED_CAR_SERVICES, BUS_MANUFACTURE));
 	}
 
-
 	@Test
 	void searchTwoItemAndMatch () {
-		var results = combinedSicActivitiesRepository.findByActivityDescriptionLowerCaseRegex("(?=.*barley)(?=.*farming)");
+		var results = combinedSicActivitiesRepository.findByActivityDescriptionLowerCaseRegex(
+			new SearchRegularExpression("barley farming", true).getRegularExpression());
 		
 		assertEquals(1, results.size());
 
