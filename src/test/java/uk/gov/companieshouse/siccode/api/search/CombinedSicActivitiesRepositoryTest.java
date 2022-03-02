@@ -23,7 +23,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import uk.gov.companieshouse.ocr.api.groups.TestType;
 
 
-
 @Tag(TestType.UNIT)
 @DataMongoTest
 @ExtendWith(SpringExtension.class)
@@ -35,28 +34,28 @@ class CombinedSicActivitiesRepositoryTest {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 
+	private final static CombinedSicActivitiesStorageModel BARLEY_FARMING = new CombinedSicActivitiesStorageModel("10", "01110", "Barley Farming",
+	"barley farming", "Growing of cereals (except rice), leguminous crops and oil seeds", false);
+
+	private final static CombinedSicActivitiesStorageModel BARLEY_GROWING = new CombinedSicActivitiesStorageModel("15", "01110", "Barley growing",
+	"barley growing", "Growing of cereals (except rice), leguminous crops and oil seeds", false);
+
+	private final static CombinedSicActivitiesStorageModel BEAN_GROWING = new CombinedSicActivitiesStorageModel("17", "01110", "Bean growing",
+	"bean growing", "Growing of cereals (except rice), leguminous crops and oil seeds", false);
+
+	private final static CombinedSicActivitiesStorageModel ARMOURED_CAR_SERVICES = new CombinedSicActivitiesStorageModel("20", "80100", "Armoured car services",
+	"armoured car services", "Private security activities", false);
+
+	private final static CombinedSicActivitiesStorageModel BARLEY_MALTING = new CombinedSicActivitiesStorageModel("30", "11060", "Barley malting (manufacture)",
+	"barley malting (manufacture)", "Manufacture of malt", false);
+
+	private final static CombinedSicActivitiesStorageModel BUS_MANUFACTURE = new CombinedSicActivitiesStorageModel("40", "29201", "Body for bus (manufacture)",
+	"body for bus (manufacture)", "Manufacture of bodies (coachwork) for motor vehicles (except caravans)", false);
+
 	@BeforeEach
 	public void beforeEach() {
-
-		var barleyFarming = new CombinedSicActivitiesStorageModel("10", "01110", "Barley Farming",
-		"barley farming", "Growing of cereals (except rice), leguminous crops and oil seeds", false);
-
-		var barleyGrowing = new CombinedSicActivitiesStorageModel("15", "01110", "Barley growing",
-		"barley growing", "Growing of cereals (except rice), leguminous crops and oil seeds", false);
-
-		var beanGrowing = new CombinedSicActivitiesStorageModel("17", "01110", "Bean growing",
-		"bean growing", "Growing of cereals (except rice), leguminous crops and oil seeds", false);
-
-		var armouredCarServices = new CombinedSicActivitiesStorageModel("20", "80100", "Armoured car services",
-		"armoured car services", "Private security activities", false);
-
-		var barleyMalting = new CombinedSicActivitiesStorageModel("30", "11060", "Barley malting (manufacture)",
-		"barley malting (manufacture)", "Manufacture of malt", false);
-
-		var busManufacture = new CombinedSicActivitiesStorageModel("40", "29201", "Body for bus (manufacture)",
-		"body for bus (manufacture)", "Manufacture of bodies (coachwork) for motor vehicles (except caravans)", false);
-		
-		var combinedSicActivities = Arrays.asList(barleyFarming, barleyGrowing, beanGrowing, armouredCarServices, barleyMalting, busManufacture);
+	
+		var combinedSicActivities = Arrays.asList(BARLEY_FARMING, BARLEY_GROWING, BEAN_GROWING, ARMOURED_CAR_SERVICES, BARLEY_MALTING, BUS_MANUFACTURE);
 		combinedSicActivitiesRepository.saveAll(combinedSicActivities);
 	
 	}
@@ -70,29 +69,18 @@ class CombinedSicActivitiesRepositoryTest {
 	void searchOneItemOrMatch() {
 		var results = combinedSicActivitiesRepository.findByActivityDescriptionLowerCaseRegex("barley");
 		
-		System.out.println("Number of results [" + results.size() + "]");
 		assertEquals(3, results.size());
 
-		List<String> resultSicCodes = results.stream()
-		.map(CombinedSicActivitiesStorageModel::getSicCode)
-		.collect(Collectors.toList());
-
-		assertThat(resultSicCodes, containsInAnyOrder("01110", "01110", "11060"));
-
+		assertThat(results, containsInAnyOrder( BARLEY_FARMING, BARLEY_GROWING, BARLEY_MALTING ));
 	}
 
 	@Test
 	void searchTwoItemOrMatch () {
 		var results = combinedSicActivitiesRepository.findByActivityDescriptionLowerCaseRegex("car|bus");
 		
-		System.out.println("Number of results [" + results.size() + "]");
 		assertEquals(2, results.size());
 
-		List<String> resultSicCodes = results.stream()
-		.map(CombinedSicActivitiesStorageModel::getSicCode)
-		.collect(Collectors.toList());
-
-		assertThat(resultSicCodes, containsInAnyOrder("80100", "29201"));
+		assertThat(results, containsInAnyOrder(ARMOURED_CAR_SERVICES, BUS_MANUFACTURE));
 	}
 
 }
