@@ -83,4 +83,15 @@ class CombinedSicActivitiesRepositoryTest {
 		assertThat(results, containsInAnyOrder(ARMOURED_CAR_SERVICES, BUS_MANUFACTURE));
 	}
 
+
+	@Test
+	void searchTwoItemAndMatch () {
+		var results = combinedSicActivitiesRepository.findByActivityDescriptionLowerCaseRegex("(?=.*barley)(?=.*farming)");
+		
+		assertEquals(1, results.size());
+
+		assertThat(results, containsInAnyOrder(BARLEY_FARMING));
+	}
+
+
 }
