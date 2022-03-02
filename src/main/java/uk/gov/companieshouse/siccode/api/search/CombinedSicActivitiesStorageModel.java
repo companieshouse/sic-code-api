@@ -4,15 +4,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-/**
- * 
-    "_id" : ObjectId("6218f9a84c90c5ec91c8ff26"),
-    "sic_code" : "10110",
-    "activity_description" : "Abattoir (manufacture)",
-    "activity_description_lower_case" : "abattoir (manufacture)",
-    "sic_description" : "Processing and preserving of meat",
-    "is_ch_activity" : false
- */
 @Document(collection = "combined_sic_activities")
 public class CombinedSicActivitiesStorageModel {
 
@@ -95,6 +86,60 @@ public class CombinedSicActivitiesStorageModel {
 
     public void setCompaniesHouseactivity(boolean isCompaniesHouseactivity) {
         this.isCompaniesHouseactivity = isCompaniesHouseactivity;
-    }   
+    }
+
+    // Override both hashCode and equals for testing (hence want all attributes)
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((activityDescription == null) ? 0 : activityDescription.hashCode());
+        result = prime * result
+                + ((activityDescriptionLowerCase == null) ? 0 : activityDescriptionLowerCase.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + (isCompaniesHouseactivity ? 1231 : 1237);
+        result = prime * result + ((sicCode == null) ? 0 : sicCode.hashCode());
+        result = prime * result + ((sicDescription == null) ? 0 : sicDescription.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        CombinedSicActivitiesStorageModel other = (CombinedSicActivitiesStorageModel) obj;
+        if (activityDescription == null) {
+            if (other.activityDescription != null)
+                return false;
+        } else if (!activityDescription.equals(other.activityDescription))
+            return false;
+        if (activityDescriptionLowerCase == null) {
+            if (other.activityDescriptionLowerCase != null)
+                return false;
+        } else if (!activityDescriptionLowerCase.equals(other.activityDescriptionLowerCase))
+            return false;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (isCompaniesHouseactivity != other.isCompaniesHouseactivity)
+            return false;
+        if (sicCode == null) {
+            if (other.sicCode != null)
+                return false;
+        } else if (!sicCode.equals(other.sicCode))
+            return false;
+        if (sicDescription == null) {
+            if (other.sicDescription != null)
+                return false;
+        } else if (!sicDescription.equals(other.sicDescription))
+            return false;
+        return true;
+    }    
     
 }
