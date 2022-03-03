@@ -1,8 +1,10 @@
 package uk.gov.companieshouse.siccode.api.search;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.TextScore;
 
 @Document(collection = "combined_sic_activities")
 public class CombinedSicActivitiesStorageModel {
@@ -17,8 +19,9 @@ public class CombinedSicActivitiesStorageModel {
     @Field("activity_description")
     private String activityDescription;   
 
-    @Field("activity_description_lower_case")
-    private String activityDescriptionLowerCase;   
+    @TextIndexed 
+    @Field("activity_description_search_field")
+    private String activityDescriptionSearchField;   
 
     @Field("sic_description")
     private String sicDescription;   
@@ -26,16 +29,19 @@ public class CombinedSicActivitiesStorageModel {
     @Field("is_ch_activity")
     private boolean isCompaniesHouseactivity;
 
+    @TextScore 
+    Float score;
+
     
     public CombinedSicActivitiesStorageModel() {
     }
 
     public CombinedSicActivitiesStorageModel(String id, String sicCode, String activityDescription,
-            String activityDescriptionLowerCase, String sicDescription, boolean isCompaniesHouseactivity) {
+            String activityDescriptionSearchField, String sicDescription, boolean isCompaniesHouseactivity) {
         this.id = id;
         this.sicCode = sicCode;
         this.activityDescription = activityDescription;
-        this.activityDescriptionLowerCase = activityDescriptionLowerCase;
+        this.activityDescriptionSearchField = activityDescriptionSearchField;
         this.sicDescription = sicDescription;
         this.isCompaniesHouseactivity = isCompaniesHouseactivity;
     }
@@ -64,12 +70,12 @@ public class CombinedSicActivitiesStorageModel {
         this.activityDescription = activityDescription;
     }
 
-    public String getActivityDescriptionLowerCase() {
-        return activityDescriptionLowerCase;
+    public String getActivityDescriptionSearchField() {
+        return activityDescriptionSearchField;
     }
 
-    public void setActivityDescriptionLowerCase(String activityDescriptionLowerCase) {
-        this.activityDescriptionLowerCase = activityDescriptionLowerCase;
+    public void setActivityDescriptionSearchField(String activityDescriptionSearchField) {
+        this.activityDescriptionSearchField = activityDescriptionSearchField;
     }
 
     public String getSicDescription() {
@@ -95,7 +101,7 @@ public class CombinedSicActivitiesStorageModel {
         int result = 1;
         result = prime * result + ((activityDescription == null) ? 0 : activityDescription.hashCode());
         result = prime * result
-                + ((activityDescriptionLowerCase == null) ? 0 : activityDescriptionLowerCase.hashCode());
+                + ((activityDescriptionSearchField == null) ? 0 : activityDescriptionSearchField.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + (isCompaniesHouseactivity ? 1231 : 1237);
         result = prime * result + ((sicCode == null) ? 0 : sicCode.hashCode());
@@ -117,10 +123,10 @@ public class CombinedSicActivitiesStorageModel {
                 return false;
         } else if (!activityDescription.equals(other.activityDescription))
             return false;
-        if (activityDescriptionLowerCase == null) {
-            if (other.activityDescriptionLowerCase != null)
+        if (activityDescriptionSearchField == null) {
+            if (other.activityDescriptionSearchField != null)
                 return false;
-        } else if (!activityDescriptionLowerCase.equals(other.activityDescriptionLowerCase))
+        } else if (!activityDescriptionSearchField.equals(other.activityDescriptionSearchField))
             return false;
         if (id == null) {
             if (other.id != null)
