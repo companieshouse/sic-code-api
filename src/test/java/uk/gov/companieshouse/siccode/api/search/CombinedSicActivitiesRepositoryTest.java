@@ -72,11 +72,14 @@ class CombinedSicActivitiesRepositoryTest {
 	void textSearchThreeItemsOrMatchVerifySorting() {
 
 		// Is this correct - do I need to specify the one text field? Also this needs #spring.data.mongodb.auto-index-creation=true
-		mongoTemplate.indexOps("combined_sic_activities").ensureIndex(TextIndexDefinition.forAllFields());
+		mongoTemplate.indexOps("combined_sic_activities").ensureIndex(TextIndexDefinition.builder().onFields("activity_description_search_field").build());
 
 		TextCriteria criteria = TextCriteria.forDefaultLanguage().matchingAny("bean growing organic");
 
 		var results = combinedSicActivitiesRepository.findAllByOrderByScore(criteria);
+
+		var sicCode1 = results.get(0).getSicCode();
+		System.out.println("Sic code " + sicCode1);
 		
 		assertEquals(3, results.size());
 
