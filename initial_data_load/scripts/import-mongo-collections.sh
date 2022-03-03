@@ -34,7 +34,6 @@ import_json() {
     mongoimport --uri="${SIC_CODE_API_MONGO_URL}" --db "${SIC_CODE_API_DATABASE}" --collection "${mongo_collection}" --file "${json_file_full_path}" --drop --type=json
 }
 
-
 import_json ch_economic_activity_sic_codes.json
 
 import_json combined_sic_activities.json
