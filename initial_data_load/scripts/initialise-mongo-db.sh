@@ -55,11 +55,11 @@ create_combined_sic_activites() {
 
 }
 
-#import_csv SIC07_CH_condensed_list_en.csv condensed_sic_codes 
+import_csv SIC07_CH_condensed_list_en.csv condensed_sic_codes 
 
-#import_csv ch_created_activity_sic_codes.csv ch_economic_activity_sic_codes 
+import_csv ch_created_activity_sic_codes.csv ch_economic_activity_sic_codes 
 
-#import_csv uksic2007_activities_alphabetic_index_november2020.csv ons_economic_activity_sic_codes
+import_csv uksic2007_activities_alphabetic_index_november2020.csv ons_economic_activity_sic_codes
 
 create_combined_sic_activites
 
