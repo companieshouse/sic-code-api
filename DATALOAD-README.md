@@ -24,5 +24,5 @@ Make sure that you have the SIC_CODE_API_MONGO_URL and SIC_CODE_API_DATABASE var
 
 Run:
 
-- initial_data_load/scripts/refresh-mongo-db.sh. This creates (or recreates) the SIC Code database (using $SIC_CODE_API_DATABASE) using the Mongo DB location $SIC_CODE_API_MONGO_URL
+- initial_data_load/scripts/initialise-mongo-db.sh. This creates (or recreates) the SIC Code database (using $SIC_CODE_API_DATABASE) using the Mongo DB location $SIC_CODE_API_MONGO_URL
 - initial_data_load/scripts/export-mongo-collections.sh. This exports the above files into the `initial_data_load/import_files` directory (for future use with concourse).
