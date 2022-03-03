@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -39,7 +38,7 @@ class CombinedSicActivitiesRepositoryTest {
 	private final static CombinedSicActivitiesStorageModel BARLEY_GROWING = new CombinedSicActivitiesStorageModel("15", "01110", "Barley growing",
 	"barley growing", "Growing of cereals except rice, leguminous crops and oil seeds", false);
 
-	private final static CombinedSicActivitiesStorageModel BEAN_GROWING_MANUFACTURE = new CombinedSicActivitiesStorageModel("17", "01110", "Bean growing organic",
+	private final static CombinedSicActivitiesStorageModel BEAN_GROWING_ORGANIC = new CombinedSicActivitiesStorageModel("17", "01110", "Bean growing organic",
 	"bean growing organic", "Growing of cereals except rice, leguminous crops and oil seeds and manufacture", false);
 
 	private final static CombinedSicActivitiesStorageModel BEAN_GROWING = new CombinedSicActivitiesStorageModel("18", "01110", "Bean growing",
@@ -57,25 +56,13 @@ class CombinedSicActivitiesRepositoryTest {
 	@BeforeEach
 	public void beforeEach() {
 	
-		var combinedSicActivities = Arrays.asList(BARLEY_FARMING, BARLEY_GROWING, BEAN_GROWING, BEAN_GROWING_MANUFACTURE, ARMOURED_CAR_SERVICES, BARLEY_MALTING, BUS_MANUFACTURE);
+		var combinedSicActivities = Arrays.asList(BARLEY_FARMING, BARLEY_GROWING, BEAN_GROWING, BEAN_GROWING_ORGANIC, ARMOURED_CAR_SERVICES, BARLEY_MALTING, BUS_MANUFACTURE);
 		combinedSicActivitiesRepository.saveAll(combinedSicActivities);	
 	}
 
 	@AfterEach
 	public void afterEach() {
 		mongoTemplate.dropCollection(CombinedSicActivitiesStorageModel.class);
-	}
-
-	@Test
-	void textSearchOneItemOrMatch() {
-
-		TextCriteria criteria = TextCriteria.forDefaultLanguage().matchingAny("barley");
-
-		var results = combinedSicActivitiesRepository.findAllBy(criteria);
-		
-		assertEquals(3, results.size());
-
-		assertThat(results, containsInAnyOrder( BARLEY_FARMING, BARLEY_GROWING, BARLEY_MALTING ));
 	}
 
 
@@ -88,40 +75,7 @@ class CombinedSicActivitiesRepositoryTest {
 		
 		assertEquals(3, results.size());
 
-		assertThat(results, contains( BEAN_GROWING_MANUFACTURE, BEAN_GROWING, BARLEY_GROWING));
-	}
-
-	@Test
-	void searchOneItemOrMatch() {
-
-		var results = combinedSicActivitiesRepository.findByActivityDescriptionSearchFieldRegex(
-			new SearchRegularExpression("barley", false).getRegularExpression());
-		
-		assertEquals(3, results.size());
-
-		assertThat(results, containsInAnyOrder( BARLEY_FARMING, BARLEY_GROWING, BARLEY_MALTING ));
-	}
-
-	@Test
-	void searchTwoItemOrMatch () {
-		var results = combinedSicActivitiesRepository.findByActivityDescriptionSearchFieldRegex(
-			new SearchRegularExpression("car bus", false).getRegularExpression());
-		
-		assertEquals(2, results.size());
-
-		assertThat(results, containsInAnyOrder(ARMOURED_CAR_SERVICES, BUS_MANUFACTURE));
-	}
-
-	@Test
-	void searchTwoItemOrMatchWithContainedWord() {
-
-		// grow is "contained in" growing
-		var results = combinedSicActivitiesRepository.findByActivityDescriptionSearchFieldRegex(
-			new SearchRegularExpression("barley grow", false).getRegularExpression());
-		
-		assertEquals(4, results.size());
-
-		assertThat(results, containsInAnyOrder( BARLEY_FARMING, BARLEY_GROWING, BARLEY_MALTING, BEAN_GROWING ));
+		assertThat(results, contains( BEAN_GROWING_ORGANIC, BEAN_GROWING, BARLEY_GROWING));
 	}
 
 	@Test
@@ -129,11 +83,11 @@ class CombinedSicActivitiesRepositoryTest {
 
 		TextCriteria criteria = TextCriteria.forDefaultLanguage().matchingAny("barley growing");
 
-		var results = combinedSicActivitiesRepository.findAllBy(criteria);
+		var results = combinedSicActivitiesRepository.findAllByOrderByScore(criteria);
 		
-		assertEquals(4, results.size());
+		assertEquals(5, results.size());
 
-		assertThat(results, containsInAnyOrder( BARLEY_FARMING, BARLEY_GROWING, BARLEY_MALTING, BEAN_GROWING ));
+		assertThat(results, containsInAnyOrder( BARLEY_FARMING, BARLEY_GROWING, BARLEY_MALTING, BEAN_GROWING, BEAN_GROWING_ORGANIC));
 	}
 
 	@Test
@@ -141,31 +95,19 @@ class CombinedSicActivitiesRepositoryTest {
 
 		TextCriteria criteria = TextCriteria.forDefaultLanguage().matchingAny("manufacture");
 
-		var results = combinedSicActivitiesRepository.findAllBy(criteria);
+		var results = combinedSicActivitiesRepository.findAllByOrderByScore(criteria);
 		
 		assertEquals(2, results.size());
 
 		assertThat(results, containsInAnyOrder( BARLEY_MALTING, BUS_MANUFACTURE ));
 	}
-	
-
-	@Test
-	void searchTwoItemAndMatch () {
-		var results = combinedSicActivitiesRepository.findByActivityDescriptionSearchFieldRegex(
-			new SearchRegularExpression("barley farming", true).getRegularExpression());
-		
-		assertEquals(1, results.size());
-
-		assertThat(results, containsInAnyOrder(BARLEY_FARMING));
-	}
 
 	@Test
 	void textSearchTwoItemAndMatch () {
 
-		Sort sort = Sort.by("score");
 		TextCriteria criteria = TextCriteria.forDefaultLanguage().matchingPhrase("barley farming");
 
-		var results = combinedSicActivitiesRepository.findAllBy(criteria, sort);
+		var results = combinedSicActivitiesRepository.findAllByOrderByScore(criteria);
 		
 		assertEquals(1, results.size());
 
