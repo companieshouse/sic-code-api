@@ -47,13 +47,9 @@ SIC_CODE_API_PORT                    | Application Port                         
 SIC_CODE_API_MONGO_URL               | URL to MongoDB                                                            | `mongodb://mongo:27017`
 SIC_CODE_API_DATABASE                | Name of Sic Code Mongo database                                           | sic_code
 
-## Why a regular expression search was used rather than a free text search
+## Why a free text search was used rather than a regular expression find
 
-The requirement is to return any of the words in the user's search if it is in a word within the economic activity. So "farm" is also returned for "farming". 
-
-Make match all can be replaced by match phrase?
-
-Key thing is that the search is not working
+The main advantage of a free text search is that you can order the results in order of relevance (this would need to be implemented manually with a regular expression file)
 
 ## Example Curl command for using the API
 
