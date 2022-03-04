@@ -10,7 +10,7 @@ The following collections will be sourced from `csv` files (in the `initial_data
 - `ons_economic_activity_sic_codes`. This list was last updated in 2007 and the `csv` file contains 15955 SIC related economic activities. This spreadsheet is available from Indexes with addendum (November 2020)
 - `ch_economic_activity_sic_codes`. This is a new list supplied by Companies House business teams who create this from user queries where Companies House staff have to find the appropriate economic activity for an activity that was not on the 2007 ONS list (e.g. Amazon Seller, YouTuber).
 
-The collection, `combined_sic_activities`, has been created by merging the above collections via a mongo script. This collection is used for the Mongo search (using the activity_description_search_field for a text search lookup).
+The collection, `combined_sic_activities`, has been created by merging the above collections via a mongo script (it also removes any bracket characters that caused misses in the search match). This collection is used for the Mongo search (using the activity_description_search_field for a text search lookup).
 
 ## Diagram
 
