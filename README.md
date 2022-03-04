@@ -26,6 +26,8 @@ In order to run the API locally, you'll need the following installed on your mac
 
 ## Getting Started
 
+Have a Mongo database with the `sic_code` database. See [Data load README](DATALOAD-README.md).
+
 1. Run `make clean build`
 2. Run `./start.sh`
 
@@ -44,6 +46,14 @@ Name                                 | Description                              
 SIC_CODE_API_PORT                    | Application Port                                                          | 8080
 SIC_CODE_API_MONGO_URL               | URL to MongoDB                                                            | `mongodb://mongo:27017`
 SIC_CODE_API_DATABASE                | Name of Sic Code Mongo database                                           | sic_code
+
+## Why a regular expression search was used rather than a free text search
+
+The requirement is to return any of the words in the user's search if it is in a word within the economic activity. So "farm" is also returned for "farming". 
+
+Make match all can be replaced by match phrase?
+
+Key thing is that the search is not working
 
 ## Example Curl command for using the API
 

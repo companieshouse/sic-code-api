@@ -16,14 +16,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.index.TextIndexDefinition;
-import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import uk.gov.companieshouse.siccode.api.groups.TestType;
 
-import uk.gov.companieshouse.ocr.api.groups.TestType;
-
-
-@Tag(TestType.UNIT)
+/**
+ *  Do integration testing on an embedded Mongo Database (note that this api will be tested
+ *  later in Karate tests against a "real" Mongo database).
+ */
+@Tag(TestType.INTEGRATION)
 @DataMongoTest
 @ExtendWith(SpringExtension.class)
 class CombinedSicActivitiesRepositoryTest {
@@ -60,6 +61,9 @@ class CombinedSicActivitiesRepositoryTest {
 	
 		var combinedSicActivities = Arrays.asList(BARLEY_FARMING, BARLEY_GROWING, BEAN_GROWING, BEAN_GROWING_ORGANIC, ARMOURED_CAR_SERVICES, BARLEY_MALTING, BUS_MANUFACTURE);
 		combinedSicActivitiesRepository.saveAll(combinedSicActivities);	
+
+		// We need to create a text index for this collection so that a Text Search works (else get the error - failed with error code 27 and error message ‘text index required for $text query")
+		mongoTemplate.indexOps("combined_sic_activities").ensureIndex(TextIndexDefinition.builder().onFields("activity_description_search_field").build());
 	}
 
 	@AfterEach
@@ -69,42 +73,21 @@ class CombinedSicActivitiesRepositoryTest {
 
 
 	@Test
-	void textSearchThreeItemsOrMatchVerifySorting() {
+	void textSearchThreeItemsAnyMatchVerifySorting() {
 
-		// Is this correct - do I need to specify the one text field? Also this needs #spring.data.mongodb.auto-index-creation=true
-		mongoTemplate.indexOps("combined_sic_activities").ensureIndex(TextIndexDefinition.builder().onFields("activity_description_search_field").build());
+		var results = combinedSicActivitiesRepository.findAllByOrderByScore(
+			new SicCodeSearchTextCriteria("Bean Growing Organic").getTextCriteriaMatchAny());
 
-		TextCriteria criteria = TextCriteria.forDefaultLanguage().matchingAny("bean growing organic");
-
-		var results = combinedSicActivitiesRepository.findAllByOrderByScore(criteria);
-
-		var sicCode1 = results.get(0).getSicCode();
-		System.out.println("Sic code " + sicCode1);
-		
 		assertEquals(3, results.size());
 
 		assertThat(results, contains( BEAN_GROWING_ORGANIC, BEAN_GROWING, BARLEY_GROWING));
 	}
 
-	/*
 	@Test
-	void textSearchTwoItemOrMatch() {
+	void textSearchOneItemAnyMatch() {
 
-		TextCriteria criteria = TextCriteria.forDefaultLanguage().matchingAny("barley growing");
-
-		var results = combinedSicActivitiesRepository.findAllByOrderByScore(criteria);
-		
-		assertEquals(5, results.size());
-
-		assertThat(results, containsInAnyOrder( BARLEY_FARMING, BARLEY_GROWING, BARLEY_MALTING, BEAN_GROWING, BEAN_GROWING_ORGANIC));
-	}
-
-	@Test
-	void textSearchOneItemWithinBracketsOrMatch() {
-
-		TextCriteria criteria = TextCriteria.forDefaultLanguage().matchingAny("manufacture");
-
-		var results = combinedSicActivitiesRepository.findAllByOrderByScore(criteria);
+		var results = combinedSicActivitiesRepository.findAllByOrderByScore(
+			new SicCodeSearchTextCriteria("manufacture").getTextCriteriaMatchAny());
 		
 		assertEquals(2, results.size());
 
@@ -112,16 +95,25 @@ class CombinedSicActivitiesRepositoryTest {
 	}
 
 	@Test
-	void textSearchTwoItemAndMatch () {
+	void textSearchTwoItemAnyMatch() {
 
-		TextCriteria criteria = TextCriteria.forDefaultLanguage().matchingPhrase("barley farming");
+		var results = combinedSicActivitiesRepository.findAllByOrderByScore(
+			new SicCodeSearchTextCriteria("Barley growing").getTextCriteriaMatchAny());
+		
+		assertEquals(5, results.size());
 
-		var results = combinedSicActivitiesRepository.findAllByOrderByScore(criteria);
+		assertThat(results, containsInAnyOrder( BARLEY_FARMING, BARLEY_GROWING, BARLEY_MALTING, BEAN_GROWING, BEAN_GROWING_ORGANIC));
+	}
+
+	@Test
+	void textSearchTwoItemPhraseMatch () {
+
+		var results = combinedSicActivitiesRepository.findAllByOrderByScore(
+			new SicCodeSearchTextCriteria("barley farming").getTextCriteriaMatchPhrase());
 		
 		assertEquals(1, results.size());
 
 		assertThat(results, containsInAnyOrder(BARLEY_FARMING));
 	}
-*/
 
 }

@@ -29,6 +29,7 @@ public class CombinedSicActivitiesStorageModel {
     @Field("is_ch_activity")
     private boolean isCompaniesHouseactivity;
 
+    // This is required for sorting the results
     @TextScore 
     Float score;
 
@@ -94,7 +95,7 @@ public class CombinedSicActivitiesStorageModel {
         this.isCompaniesHouseactivity = isCompaniesHouseactivity;
     }
 
-    // Override both hashCode and equals for testing (hence want all attributes)
+    // Override both hashCode and equals for testing with Hamcrest matchers (hence want all data attributes)
     @Override
     public int hashCode() {
         final int prime = 31;
