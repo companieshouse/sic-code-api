@@ -111,3 +111,5 @@ db.ch_economic_activity_sic_codes.aggregate([
 ]);
 
 db.combined_sic_activities.createIndex( { "sic_code" : 1 } )
+
+db.combined_sic_activities.createIndex( { activity_description_search_field: "text" } )
