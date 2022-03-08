@@ -1,47 +1,31 @@
 package uk.gov.companieshouse.siccode.api.search;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.TextIndexed;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.data.mongodb.core.mapping.TextScore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * CombinedSicActivitiesStorageModel is used for both the MongoDB database collection and the api data since it's a very simple model
- */
+public class CombinedSicActivitiesStorageModelDto {
 
-@Document(collection = "combined_sic_activities")
-public class CombinedSicActivitiesStorageModel {
-
-    @Id
-    @Field("_id")
+    @JsonProperty("id")
     private String id;
     
-    @Field("sic_code")
+    @JsonProperty("sic_code")
     private String sicCode;   
 
-    @Field("activity_description")
+    @JsonProperty("activity_description")
     private String activityDescription;   
 
-    @TextIndexed 
-    @Field("activity_description_search_field")
+    @JsonProperty("activity_description_search_field")
     private String activityDescriptionSearchField;   
 
-    @Field("sic_description")
+    @JsonProperty("sic_description")
     private String sicDescription;   
     
-    @Field("is_ch_activity")
+    @JsonProperty("is_ch_activity")
     private boolean companiesHouseactivity;
 
-    // This is required for sorting the results
-    @TextScore 
-    Float score;
-
-    
-    public CombinedSicActivitiesStorageModel() {
+    public CombinedSicActivitiesStorageModelDto() {
     }
 
-    public CombinedSicActivitiesStorageModel(String id, String sicCode, String activityDescription,
+    public CombinedSicActivitiesStorageModelDto(String id, String sicCode, String activityDescription,
             String activityDescriptionSearchField, String sicDescription, boolean isCompaniesHouseactivity) {
         this.id = id;
         this.sicCode = sicCode;
@@ -122,7 +106,7 @@ public class CombinedSicActivitiesStorageModel {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        CombinedSicActivitiesStorageModel other = (CombinedSicActivitiesStorageModel) obj;
+        CombinedSicActivitiesStorageModelDto other = (CombinedSicActivitiesStorageModelDto) obj;
         if (activityDescription == null) {
             if (other.activityDescription != null)
                 return false;

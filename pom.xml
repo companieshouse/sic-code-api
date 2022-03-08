@@ -18,6 +18,7 @@
 
 		<included.tests>unit-test</included.tests>
 
+        <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
 		<apache-commons-lang.version>2.6</apache-commons-lang.version>
 		<structured-logging.version>1.9.14</structured-logging.version>
 
@@ -73,6 +74,12 @@
 			<artifactId>structured-logging</artifactId>
 			<version>${structured-logging.version}</version>
 		</dependency>
+
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${org.mapstruct.version}</version>
+        </dependency>
 
 		<!-- needed to add this for CH structured logging (errors on v3 of this linrary-->
 		<dependency>
@@ -164,6 +171,22 @@
 					</container>
 				</configuration>
 			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${org.mapstruct.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 

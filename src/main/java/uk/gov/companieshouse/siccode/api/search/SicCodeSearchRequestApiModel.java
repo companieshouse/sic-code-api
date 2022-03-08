@@ -1,8 +1,13 @@
 package uk.gov.companieshouse.siccode.api.search;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class SicCodeSearchRequestApiModel {
 
+    @JsonProperty("search_string")
     private String searchString;
+
+    @JsonProperty("match_phrase")
     private boolean matchPhrase;
 
     public String getSearchString() {
