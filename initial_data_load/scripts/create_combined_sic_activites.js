@@ -35,7 +35,33 @@ db.ons_economic_activity_sic_codes.aggregate([
             "is_ch_activity" : {$toBool: false}
         }
     },
+    {
+        $project:{
+            "_id":1,
+            "sic_code" : 1,
+            "activity_description" : 1,
+            "activity_description_lower_case" : 1,
+            "activity_description_search_field_a" : { $replaceAll: { input: "$activity_description_lower_case" , find: "(", replacement: "" } }            ,
+            "sic_description" : 1,
+            "is_ch_activity" : 1
+        }
+    },
+    {
+        $project:{
+            "_id":1,
+            "sic_code" : 1,
+            "activity_description" : 1,
+            "activity_description_search_field" : { $replaceAll: { input: "$activity_description_search_field_a" , find: ")", replacement: "" } }            ,
+            "sic_description" : 1,
+            "is_ch_activity" : 1
+        }
+    },
     { $out : "combined_sic_activities"}
+]);
+
+db.solarSystem.aggregate([
+    { "$project": { "_id": 0, "name": 1, "gravity.value": 1} },
+    { "$project": { "gravity": "$gravity.value" }}
 ]);
 
 db.ch_economic_activity_sic_codes.aggregate([
@@ -60,7 +86,30 @@ db.ch_economic_activity_sic_codes.aggregate([
             "is_ch_activity" : {$toBool: true}
         }
     },
+    {
+        $project:{
+            "_id":1,
+            "sic_code" : 1,
+            "activity_description" : 1,
+            "activity_description_lower_case" : 1,
+            "activity_description_search_field_a" : { $replaceAll: { input: "$activity_description_lower_case" , find: "(", replacement: "" } }            ,
+            "sic_description" : 1,
+            "is_ch_activity" : 1
+        }
+    },
+    {
+        $project:{
+            "_id":1,
+            "sic_code" : 1,
+            "activity_description" : 1,
+            "activity_description_search_field" : { $replaceAll: { input: "$activity_description_search_field_a" , find: ")", replacement: "" } }            ,
+            "sic_description" : 1,
+            "is_ch_activity" : 1
+        }
+    },
     { $merge : "combined_sic_activities"}
 ]);
 
 db.combined_sic_activities.createIndex( { "sic_code" : 1 } )
+
+db.combined_sic_activities.createIndex( { activity_description_search_field: "text" } )

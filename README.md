@@ -9,7 +9,7 @@ This has a  Rest API with the following endpoints:
 
 URL                       | VERB | Notes
 ------------------------- | ---- | --------------------------------------------------------------------------
-`/siccode-api/search`     | POST | This does a keyword search to search for SIC Codes (with an option to search on one or all of the supplied words)
+`/sic-code-search`        | POST | This does a keyword search to search for SIC Codes (with an option to search on one or all of the supplied words)
 
 See the [api-spec](spec/api-spec.json) which defines the HTTP responses and JSON returns for all methods in the API.
 
@@ -25,6 +25,8 @@ In order to run the API locally, you'll need the following installed on your mac
 - [MongoDB](https://www.mongodb.com) although this can be run within a Docker image.
 
 ## Getting Started
+
+Have a Mongo database with the `sic_code` database. See [Data load README](DATALOAD-README.md).
 
 1. Run `make clean build`
 2. Run `./start.sh`
@@ -45,6 +47,10 @@ SIC_CODE_API_PORT                    | Application Port                         
 SIC_CODE_API_MONGO_URL               | URL to MongoDB                                                            | `mongodb://mongo:27017`
 SIC_CODE_API_DATABASE                | Name of Sic Code Mongo database                                           | sic_code
 
+## Why a free text search was used rather than a regular expression find
+
+The main advantage of a free text search is that you can order the results in order of relevance (this would need to be implemented manually with a regular expression file)
+
 ## Example Curl command for using the API
 
 ## Using CHS docker
@@ -53,5 +59,5 @@ SIC_CODE_API_DATABASE                | Name of Sic Code Mongo database          
 
 curl -w '%{http_code}' --header "Content-Type: application/json" \
   --request POST \
-  --data '{"keywords": "Barley Farming", "match_all_words": 'true', "context_id": "sic-code-web-155982514859810330"}' \
-  http://api.chs.local/siccode-api/search
+  --data '{"keywords": "Barley Farming", "match_phrase": 'true', "context_id": "sic-code-web-155982514859810330"}' \
+  http://api.chs.local/sic-code-search
