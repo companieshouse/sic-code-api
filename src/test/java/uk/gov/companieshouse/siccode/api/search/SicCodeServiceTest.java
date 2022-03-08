@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -34,6 +35,7 @@ public class SicCodeServiceTest {
     private SicCodeService sicCodeService;
 
     @Test
+    @DisplayName("Get empty list returned when the search string is empty")
     void searchNoResultsWithEmptySearchString() {
 
         var emptySearchRequest = new SicCodeSearchRequestApiModel();
@@ -45,6 +47,7 @@ public class SicCodeServiceTest {
     }
 
     @Test
+    @DisplayName("Get expected results returned when the search string has a value and not a phase match")
     void searchAny() {
 
         var anySearchRequest = new SicCodeSearchRequestApiModel();
@@ -62,6 +65,7 @@ public class SicCodeServiceTest {
     }
 
     @Test
+    @DisplayName("Get expected results returned when the search string has a value and is a phase match")
     void searchPhrase() {
 
         var phraseSearchRequest = new SicCodeSearchRequestApiModel();
