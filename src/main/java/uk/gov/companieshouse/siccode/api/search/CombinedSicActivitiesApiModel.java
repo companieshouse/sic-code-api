@@ -2,7 +2,7 @@ package uk.gov.companieshouse.siccode.api.search;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class CombinedSicActivitiesStorageModelDto {
+public class CombinedSicActivitiesApiModel {
 
     @JsonProperty("id")
     private String id;
@@ -22,10 +22,10 @@ public class CombinedSicActivitiesStorageModelDto {
     @JsonProperty("is_ch_activity")
     private boolean companiesHouseactivity;
 
-    public CombinedSicActivitiesStorageModelDto() {
+    public CombinedSicActivitiesApiModel() {
     }
 
-    public CombinedSicActivitiesStorageModelDto(String id, String sicCode, String activityDescription,
+    public CombinedSicActivitiesApiModel(String id, String sicCode, String activityDescription,
             String activityDescriptionSearchField, String sicDescription, boolean isCompaniesHouseactivity) {
         this.id = id;
         this.sicCode = sicCode;
@@ -106,7 +106,7 @@ public class CombinedSicActivitiesStorageModelDto {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        CombinedSicActivitiesStorageModelDto other = (CombinedSicActivitiesStorageModelDto) obj;
+        CombinedSicActivitiesApiModel other = (CombinedSicActivitiesApiModel) obj;
         if (activityDescription == null) {
             if (other.activityDescription != null)
                 return false;

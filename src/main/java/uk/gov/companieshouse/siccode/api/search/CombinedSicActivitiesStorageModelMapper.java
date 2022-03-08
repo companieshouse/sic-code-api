@@ -2,11 +2,14 @@ package uk.gov.companieshouse.siccode.api.search;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 import org.springframework.web.context.annotation.RequestScope;
 
 @RequestScope
 @Mapper(componentModel = "spring")
 public interface CombinedSicActivitiesStorageModelMapper {
+
+    CombinedSicActivitiesStorageModelMapper INSTANCE = Mappers.getMapper( CombinedSicActivitiesStorageModelMapper.class );
 
     @Mapping(source = "CombinedSicActivitiesStorageModel.id", target = "id")
     @Mapping(source = "CombinedSicActivitiesStorageModel.sicCode", target = "sicCode")
@@ -16,6 +19,6 @@ public interface CombinedSicActivitiesStorageModelMapper {
     @Mapping(source = "CombinedSicActivitiesStorageModel.sicDescription", target = "sicDescription")
     @Mapping(source = "CombinedSicActivitiesStorageModel.companiesHouseactivity", target = "companiesHouseactivity")
 
-    CombinedSicActivitiesStorageModelDto dto(CombinedSicActivitiesStorageModel CombinedSicActivitiesStorageModel);
+    CombinedSicActivitiesApiModel storageModeltoApiModel(CombinedSicActivitiesStorageModel CombinedSicActivitiesStorageModel);
     
 }
