@@ -11,7 +11,7 @@ URL                       | VERB | Notes
 ------------------------- | ---- | --------------------------------------------------------------------------
 `/siccode-api/search`     | POST | This does a keyword search to search for SIC Codes (with an option to search on one or all of the supplied words)
 
-See the [swagger spec](spec/swagger.json) defines the HTTP responses and JSON returns for all methods in the API.
+See the [api-spec](spec/api-spec.json) which defines the HTTP responses and JSON returns for all methods in the API.
 
 The data is loaded into the database during the initial load as described in the [Data load README](DATALOAD-README.md). For the MVP version there will NOT be any updates to the Mongo Data (the SIC Code data is very stable with the last changes made in 2007, however going forward we will want to allow the addition of extra Economic activities for a SIC code which might result from people contacting Companies House about the nature of their proposed company).
 
