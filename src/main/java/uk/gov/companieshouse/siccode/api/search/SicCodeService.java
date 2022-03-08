@@ -11,21 +11,26 @@ import org.springframework.stereotype.Service;
 @Service
 public class SicCodeService {
 
+    private final CombinedSicActivitiesRepository combinedSicActivitiesRepository;
+    
     @Autowired
-    private CombinedSicActivitiesRepository combinedSicActivitiesRepository;
+    public SicCodeService(CombinedSicActivitiesRepository combinedSicActivitiesRepository) {
+        this.combinedSicActivitiesRepository = combinedSicActivitiesRepository;
+    }
 
     public  List<CombinedSicActivitiesStorageModel> search(SicCodeSearchRequestApiModel sicCodeSearchRequestApiModel) {
 
-        if (StringUtils.isEmpty(sicCodeSearchRequestApiModel.getSearchString())) {
+        var searchString = sicCodeSearchRequestApiModel.getSearchString();
+        if (StringUtils.isEmpty(searchString)) {
             return new ArrayList<>();
         }
 
         TextCriteria criteria = null;
         if (sicCodeSearchRequestApiModel.isMatchPhrase()) {
-            criteria = new SicCodeSearchTextCriteria(sicCodeSearchRequestApiModel.getSearchString()).getTextCriteriaMatchPhrase();
+            criteria = new SicCodeSearchTextCriteria(searchString).getTextCriteriaMatchPhrase();
         }
         else {
-            criteria = new SicCodeSearchTextCriteria(sicCodeSearchRequestApiModel.getSearchString()).getTextCriteriaMatchAny();
+            criteria = new SicCodeSearchTextCriteria(searchString).getTextCriteriaMatchAny();
         }
 
         return combinedSicActivitiesRepository.findAllByOrderByScore(criteria);
