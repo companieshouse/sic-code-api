@@ -13,8 +13,8 @@ public class CombinedSicActivitiesApiModel {
     @JsonProperty("activity_description")
     private String activityDescription;   
 
-    @JsonProperty("activity_description_search_field")
-    private String activityDescriptionSearchField;   
+    // @JsonProperty("activity_description_search_field")
+    // private String activityDescriptionSearchField;   
 
     @JsonProperty("sic_description")
     private String sicDescription;   
@@ -26,11 +26,10 @@ public class CombinedSicActivitiesApiModel {
     }
 
     public CombinedSicActivitiesApiModel(String id, String sicCode, String activityDescription,
-            String activityDescriptionSearchField, String sicDescription, boolean isCompaniesHouseactivity) {
+             String sicDescription, boolean isCompaniesHouseactivity) {
         this.id = id;
         this.sicCode = sicCode;
         this.activityDescription = activityDescription;
-        this.activityDescriptionSearchField = activityDescriptionSearchField;
         this.sicDescription = sicDescription;
         this.companiesHouseactivity = isCompaniesHouseactivity;
     }
@@ -59,13 +58,13 @@ public class CombinedSicActivitiesApiModel {
         this.activityDescription = activityDescription;
     }
 
-    public String getActivityDescriptionSearchField() {
-        return activityDescriptionSearchField;
-    }
+    // public String getActivityDescriptionSearchField() {
+    //     return activityDescriptionSearchField;
+    // }
 
-    public void setActivityDescriptionSearchField(String activityDescriptionSearchField) {
-        this.activityDescriptionSearchField = activityDescriptionSearchField;
-    }
+    // public void setActivityDescriptionSearchField(String activityDescriptionSearchField) {
+    //     this.activityDescriptionSearchField = activityDescriptionSearchField;
+    // }
 
     public String getSicDescription() {
         return sicDescription;
@@ -89,8 +88,6 @@ public class CombinedSicActivitiesApiModel {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((activityDescription == null) ? 0 : activityDescription.hashCode());
-        result = prime * result
-                + ((activityDescriptionSearchField == null) ? 0 : activityDescriptionSearchField.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + (companiesHouseactivity ? 1231 : 1237);
         result = prime * result + ((sicCode == null) ? 0 : sicCode.hashCode());
@@ -111,11 +108,6 @@ public class CombinedSicActivitiesApiModel {
             if (other.activityDescription != null)
                 return false;
         } else if (!activityDescription.equals(other.activityDescription))
-            return false;
-        if (activityDescriptionSearchField == null) {
-            if (other.activityDescriptionSearchField != null)
-                return false;
-        } else if (!activityDescriptionSearchField.equals(other.activityDescriptionSearchField))
             return false;
         if (id == null) {
             if (other.id != null)
