@@ -11,10 +11,7 @@ public class CombinedSicActivitiesApiModel {
     private String sicCode;   
 
     @JsonProperty("activity_description")
-    private String activityDescription;   
-
-    // @JsonProperty("activity_description_search_field")
-    // private String activityDescriptionSearchField;   
+    private String activityDescription;     
 
     @JsonProperty("sic_description")
     private String sicDescription;   
@@ -57,14 +54,6 @@ public class CombinedSicActivitiesApiModel {
     public void setActivityDescription(String activityDescription) {
         this.activityDescription = activityDescription;
     }
-
-    // public String getActivityDescriptionSearchField() {
-    //     return activityDescriptionSearchField;
-    // }
-
-    // public void setActivityDescriptionSearchField(String activityDescriptionSearchField) {
-    //     this.activityDescriptionSearchField = activityDescriptionSearchField;
-    // }
 
     public String getSicDescription() {
         return sicDescription;
