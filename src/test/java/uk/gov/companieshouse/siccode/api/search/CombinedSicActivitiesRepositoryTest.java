@@ -5,19 +5,17 @@ import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInA
 import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.index.TextIndexDefinition;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import uk.gov.companieshouse.siccode.api.groups.TestType;
 
@@ -27,7 +25,6 @@ import uk.gov.companieshouse.siccode.api.groups.TestType;
  */
 @Tag(TestType.INTEGRATION)
 @DataMongoTest
-@ExtendWith(SpringExtension.class)
 class CombinedSicActivitiesRepositoryTest {
 
     @Autowired
@@ -36,31 +33,18 @@ class CombinedSicActivitiesRepositoryTest {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    private final static CombinedSicActivitiesStorageModel BARLEY_FARMING = new CombinedSicActivitiesStorageModel("10", "01110", "Barley Farming",
-    "barley farming", "Growing of cereals except rice, leguminous crops and oil seeds", false);
-
-    private final static CombinedSicActivitiesStorageModel BARLEY_GROWING = new CombinedSicActivitiesStorageModel("15", "01110", "Barley growing",
-    "barley growing", "Growing of cereals except rice, leguminous crops and oil seeds", false);
-
-    private final static CombinedSicActivitiesStorageModel BEAN_GROWING_ORGANIC = new CombinedSicActivitiesStorageModel("17", "01110", "Bean growing organic",
-    "bean growing organic", "Growing of cereals except rice, leguminous crops and oil seeds and manufacture", false);
-
-    private final static CombinedSicActivitiesStorageModel BEAN_GROWING = new CombinedSicActivitiesStorageModel("18", "01110", "Bean growing",
-    "bean growing", "Growing of cereals except rice, leguminous crops and oil seeds", false);
-
-    private final static CombinedSicActivitiesStorageModel ARMOURED_CAR_SERVICES = new CombinedSicActivitiesStorageModel("20", "80100", "Armoured car services",
-    "armoured car services", "Private security activities", false);
-
-    private final static CombinedSicActivitiesStorageModel BARLEY_MALTING = new CombinedSicActivitiesStorageModel("30", "11060", "Barley malting (manufacture)",
-    "barley malting manufacture", "Manufacture of malt", false);
-
-    private final static CombinedSicActivitiesStorageModel BUS_MANUFACTURE = new CombinedSicActivitiesStorageModel("40", "29201", "Body for bus (manufacture)",
-    "body for bus manufacture", "Manufacture of bodies (coachwork) for motor vehicles (except caravans)", false);
-
     @BeforeEach
     public void beforeEach() {
     
-        var combinedSicActivities = Arrays.asList(BARLEY_FARMING, BARLEY_GROWING, BEAN_GROWING, BEAN_GROWING_ORGANIC, ARMOURED_CAR_SERVICES, BARLEY_MALTING, BUS_MANUFACTURE);
+        var combinedSicActivities = new ArrayList<CombinedSicActivitiesStorageModel>();
+        combinedSicActivities.add(SicCodeTestData.BARLEY_FARMING_STORAGE_MODEL);
+        combinedSicActivities.add(SicCodeTestData.BARLEY_GROWING_STORAGE_MODEL);
+        combinedSicActivities.add(SicCodeTestData.BEAN_GROWING_STORAGE_MODEL);
+        combinedSicActivities.add(SicCodeTestData.BEAN_GROWING_ORGANIC_STORAGE_MODEL);
+        combinedSicActivities.add(SicCodeTestData.ARMOURED_CAR_SERVICES_STORAGE_MODEL);
+        combinedSicActivities.add(SicCodeTestData.BARLEY_MALTING_STORAGE_MODEL);
+        combinedSicActivities.add(SicCodeTestData.BUS_MANUFACTURE_STORAGE_MODEL);
+        
         combinedSicActivitiesRepository.saveAll(combinedSicActivities);	
 
         // We need to create a text index for this collection so that a Text Search works (else get the error - failed with error code 27 and error message ‘text index required for $text query")
@@ -82,7 +66,9 @@ class CombinedSicActivitiesRepositoryTest {
         assertEquals(3, results.size());
 
         // ordered assertion with contains and number of matches are 3, 2, 1
-        assertThat(results, contains( BEAN_GROWING_ORGANIC, BEAN_GROWING, BARLEY_GROWING));
+        assertThat(results, contains( SicCodeTestData.BEAN_GROWING_ORGANIC_STORAGE_MODEL,
+                                      SicCodeTestData.BEAN_GROWING_STORAGE_MODEL,
+                                      SicCodeTestData.BARLEY_GROWING_STORAGE_MODEL));
     }
 
     @Test
@@ -94,7 +80,8 @@ class CombinedSicActivitiesRepositoryTest {
         
         assertEquals(2, results.size());
 
-        assertThat(results, containsInAnyOrder( BARLEY_MALTING, BUS_MANUFACTURE ));
+        assertThat(results, containsInAnyOrder( SicCodeTestData.BARLEY_MALTING_STORAGE_MODEL,
+                                                SicCodeTestData.BUS_MANUFACTURE_STORAGE_MODEL));
     }
 
     @Test
@@ -105,8 +92,12 @@ class CombinedSicActivitiesRepositoryTest {
             new SicCodeSearchTextCriteria("Barley growing").getTextCriteriaMatchAny());
         
         assertEquals(5, results.size());
-
-        assertThat(results, containsInAnyOrder( BARLEY_FARMING, BARLEY_GROWING, BARLEY_MALTING, BEAN_GROWING, BEAN_GROWING_ORGANIC));
+        
+        assertThat(results, containsInAnyOrder( SicCodeTestData.BARLEY_FARMING_STORAGE_MODEL, 
+                                                SicCodeTestData.BARLEY_GROWING_STORAGE_MODEL, 
+                                                SicCodeTestData.BARLEY_MALTING_STORAGE_MODEL, 
+                                                SicCodeTestData.BEAN_GROWING_STORAGE_MODEL, 
+                                                SicCodeTestData.BEAN_GROWING_ORGANIC_STORAGE_MODEL));
     }
 
     @Test
@@ -118,7 +109,7 @@ class CombinedSicActivitiesRepositoryTest {
         
         assertEquals(1, results.size());
 
-        assertThat(results, containsInAnyOrder(BARLEY_FARMING));
+        assertThat(results, containsInAnyOrder(SicCodeTestData.BARLEY_FARMING_STORAGE_MODEL));
     }
 
 }
