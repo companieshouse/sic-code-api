@@ -2,12 +2,15 @@ package uk.gov.companieshouse.siccode.api.search;
 
 import static org.hamcrest.Matchers.hasItems;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.CompletionException;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -17,6 +20,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import uk.gov.companieshouse.siccode.api.groups.TestType;
 
@@ -49,7 +53,7 @@ public class SicCodeControllerTest {
 
         when(mapper.storageModelToApiModel(storageModelList)).thenReturn(apiModelList);
 
-        mockMvc.perform(post("/sic-code-search")
+        mockMvc.perform(post("/internal/sic-code-search")
         .contentType(MediaType.APPLICATION_JSON)
         .content("{ \"context_id\":\"111\",\"search_string\": \"Barley Farming\", \"match_phrase\": false}")
         .accept(MediaType.APPLICATION_JSON))
@@ -60,4 +64,16 @@ public class SicCodeControllerTest {
         .andExpect(jsonPath("$[*].activity_description", hasItems("Barley growing")));
     }
     
+    @Test
+    @DisplayName("Successful search with calls to service and mapper classes")
+    void shouldCatchUncaughtExceptionInController() throws Exception {
+
+        when(sicCodeService.search(any(SicCodeSearchRequestApiModel.class))).thenThrow(new RuntimeException("Test exception"));
+
+        mockMvc.perform(post("/internal/sic-code-search")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"context_id\":\"111\",\"search_string\": \"Barley Farming\", \"match_phrase\": false}")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isInternalServerError());
+    }
 }
