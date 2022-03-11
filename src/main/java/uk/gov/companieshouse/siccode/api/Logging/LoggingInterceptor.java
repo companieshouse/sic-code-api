@@ -15,17 +15,17 @@ import uk.gov.companieshouse.siccode.api.SicCodeApiApplication;
 
 @Component
 public class LoggingInterceptor implements HandlerInterceptor, RequestLogger {
-	private static final Logger LOGGER = LoggerFactory.getLogger(SicCodeApiApplication.APPLICATION_NAME_SPACE);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SicCodeApiApplication.APPLICATION_NAME_SPACE);
 
-	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-		logStartRequestProcessing(request, LOGGER);
-		return true;
-	}
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        logStartRequestProcessing(request, LOGGER);
+        return true;
+    }
 
-	@Override
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-			@Nullable ModelAndView modelAndView) {
-		logEndRequestProcessing(request, response, LOGGER);
-	}
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+        @Nullable ModelAndView modelAndView) {
+        logEndRequestProcessing(request, response, LOGGER);
+    }
 }
