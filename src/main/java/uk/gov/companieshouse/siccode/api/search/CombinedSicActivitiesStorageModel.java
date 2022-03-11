@@ -42,13 +42,13 @@ public class CombinedSicActivitiesStorageModel {
     }
 
     public CombinedSicActivitiesStorageModel(String id, String sicCode, String activityDescription,
-            String activityDescriptionSearchField, String sicDescription, boolean isCompaniesHouseactivity) {
+            String activityDescriptionSearchField, String sicDescription, boolean companiesHouseactivity) {
         this.id = id;
         this.sicCode = sicCode;
         this.activityDescription = activityDescription;
         this.activityDescriptionSearchField = activityDescriptionSearchField;
         this.sicDescription = sicDescription;
-        this.companiesHouseactivity = isCompaniesHouseactivity;
+        this.companiesHouseactivity = companiesHouseactivity;
     }
 
     public String getId() {
@@ -95,8 +95,8 @@ public class CombinedSicActivitiesStorageModel {
         return companiesHouseactivity;
     }
 
-    public void setCompaniesHouseactivity(boolean isCompaniesHouseactivity) {
-        this.companiesHouseactivity = isCompaniesHouseactivity;
+    public void setCompaniesHouseactivity(boolean companiesHouseactivity) {
+        this.companiesHouseactivity = companiesHouseactivity;
     }
 
     // Override both hashCode and equals for testing with Hamcrest matchers (hence want all data attributes)
