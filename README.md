@@ -9,7 +9,7 @@ This has a  Rest API with the following endpoints:
 
 URL                       | VERB | Notes
 ------------------------- | ---- | --------------------------------------------------------------------------
-`/sic-code-search`        | POST | This does a keyword search to search for SIC Codes (with an option to search on one or all of the supplied words)
+`/internal/sic-code-search`        | POST | This does a keyword search to search for SIC Codes (with an option to search on one or all of the supplied words)
 
 See the [api-spec](spec/api-spec.json) which defines the HTTP responses and JSON returns for all methods in the API.
 
@@ -60,4 +60,4 @@ The main advantage of a free text search is that you can order the results in or
 curl -w '%{http_code}' --header "Content-Type: application/json" \
   --request POST \
   --data '{"search_string": "Barley Farming", "match_phrase": 'true', "context_id": "sic-code-web-155982514859810330"}' \
-  http://api.chs.local/sic-code-search
+  http://api.chs.local/internal/sic-code-search
