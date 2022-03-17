@@ -53,18 +53,18 @@ The main advantage of a free text search is that you can order the results in or
 
 ## Example Curl command for using the API
 
-## Using CHS docker
+### Using localhost
 
 ``` bash
 # Any word
 curl -w '%{http_code}' --header "Content-Type: application/json" \
   --request POST \
   --data '{"search_string": "Barley growing", "match_phrase": 'false', "context_id": "sic-code-web-155982514859810330"}' \
-  http://api.chs.local/internal/sic-code-search
+  http://localhost:8080/internal/sic-code-search
 
 # phrase match
 curl -w '%{http_code}' --header "Content-Type: application/json" \
   --request POST \
   --data '{"search_string": "Barley growing", "match_phrase": 'true', "context_id": "sic-code-web-155982514859810330"}' \
-  http://api.chs.local/internal/sic-code-search
+  http://localhost:8080/internal/sic-code-search
 ```
