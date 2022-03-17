@@ -17,7 +17,7 @@ import uk.gov.companieshouse.siccode.api.SicCodeApiApplication;
 @RestController
 public class SicCodeController {
 
-    protected static final Logger LOG = LoggerFactory.getLogger(SicCodeApiApplication.APPLICATION_NAME_SPACE);
+    private static final Logger LOG = LoggerFactory.getLogger(SicCodeApiApplication.APPLICATION_NAME_SPACE);
 
     private final SicCodeService sicCodeService;
 
