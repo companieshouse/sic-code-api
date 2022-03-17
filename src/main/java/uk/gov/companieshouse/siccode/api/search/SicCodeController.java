@@ -43,7 +43,6 @@ public class SicCodeController {
     @ExceptionHandler(Exception.class)
     public void uncaughtException(Exception e) {
 
-        LOG.error("Something unexpected has occurred", e);
         LOG.error("Something unexpected has occurred: " + e, e);
     }
 
