@@ -14,10 +14,6 @@ import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
 import uk.gov.companieshouse.siccode.api.SicCodeApiApplication;
 
-/**
- * SicCodeController
- */
-
 @RestController
 public class SicCodeController {
 
