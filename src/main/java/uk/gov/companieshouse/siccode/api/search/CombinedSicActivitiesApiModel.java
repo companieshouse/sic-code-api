@@ -86,35 +86,44 @@ public class CombinedSicActivitiesApiModel {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj){
             return true;
-        if (obj == null)
+        }
+        if (obj == null){
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()){
             return false;
+        }
         CombinedSicActivitiesApiModel other = (CombinedSicActivitiesApiModel) obj;
         if (activityDescription == null) {
             if (other.activityDescription != null)
                 return false;
-        } else if (!activityDescription.equals(other.activityDescription))
+        } else if (!activityDescription.equals(other.activityDescription)) {
             return false;
+        }
         if (id == null) {
             if (other.id != null)
                 return false;
-        } else if (!id.equals(other.id))
+        } else if (!id.equals(other.id)){
             return false;
-        if (companiesHouseactivity != other.companiesHouseactivity)
+        }
+        if (companiesHouseactivity != other.companiesHouseactivity){
             return false;
+        }
         if (sicCode == null) {
             if (other.sicCode != null)
                 return false;
-        } else if (!sicCode.equals(other.sicCode))
+        } else if (!sicCode.equals(other.sicCode)){
             return false;
+        }
         if (sicDescription == null) {
-            if (other.sicDescription != null)
+            if (other.sicDescription != null){
                 return false;
-        } else if (!sicDescription.equals(other.sicDescription))
+            }
+        } else if (!sicDescription.equals(other.sicDescription)){
             return false;
+        }
         return true;
     }    
     
