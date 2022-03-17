@@ -1,7 +1,7 @@
 package uk.gov.companieshouse.siccode.api.search;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,7 +50,7 @@ public class SicCodeService {
 
     private Map<String, Object> dataMap(SicCodeSearchRequestApiModel sicCodeSearchRequestApiModel,
             List<CombinedSicActivitiesStorageModel> combinedSicActivityOrderedResults) {
-                Map<String, Object> result = new HashMap<>();
+                Map<String, Object> result = new LinkedHashMap<>();
                 result.put("search_string", sicCodeSearchRequestApiModel.getSearchString());
                 result.put("match_phrase", sicCodeSearchRequestApiModel.isMatchPhrase());
                 result.put("number_of_matches", combinedSicActivityOrderedResults.size());
