@@ -2,20 +2,24 @@ package uk.gov.companieshouse.siccode.api.search;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * CombinedSicActivitiesApiModel is the data model that is sent to the from the
+ * api to client
+ */
 public class CombinedSicActivitiesApiModel {
 
     @JsonProperty("id")
     private String id;
-    
+
     @JsonProperty("sic_code")
-    private String sicCode;   
+    private String sicCode;
 
     @JsonProperty("activity_description")
-    private String activityDescription;     
+    private String activityDescription;
 
     @JsonProperty("sic_description")
-    private String sicDescription;   
-    
+    private String sicDescription;
+
     @JsonProperty("is_ch_activity")
     private boolean companiesHouseactivity;
 
@@ -23,7 +27,7 @@ public class CombinedSicActivitiesApiModel {
     }
 
     public CombinedSicActivitiesApiModel(String id, String sicCode, String activityDescription,
-             String sicDescription, boolean companiesHouseactivity) {
+            String sicDescription, boolean companiesHouseactivity) {
         this.id = id;
         this.sicCode = sicCode;
         this.activityDescription = activityDescription;
@@ -71,7 +75,8 @@ public class CombinedSicActivitiesApiModel {
         this.companiesHouseactivity = companiesHouseactivity;
     }
 
-    // Override both hashCode and equals for testing with Hamcrest matchers (hence want all data attributes)
+    // Override both hashCode and equals for testing with Hamcrest matchers (hence
+    // want all data attributes)
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -86,45 +91,48 @@ public class CombinedSicActivitiesApiModel {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj){
+        if (this == obj) {
             return true;
         }
-        if (obj == null){
+        if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()){
+        if (getClass() != obj.getClass()) {
             return false;
         }
         CombinedSicActivitiesApiModel other = (CombinedSicActivitiesApiModel) obj;
         if (activityDescription == null) {
-            if (other.activityDescription != null)
+            if (other.activityDescription != null) {
                 return false;
+            }
         } else if (!activityDescription.equals(other.activityDescription)) {
             return false;
         }
         if (id == null) {
-            if (other.id != null)
+            if (other.id != null) {
                 return false;
-        } else if (!id.equals(other.id)){
+            }
+        } else if (!id.equals(other.id)) {
             return false;
         }
-        if (companiesHouseactivity != other.companiesHouseactivity){
+        if (companiesHouseactivity != other.companiesHouseactivity) {
             return false;
         }
         if (sicCode == null) {
-            if (other.sicCode != null)
+            if (other.sicCode != null) {
                 return false;
-        } else if (!sicCode.equals(other.sicCode)){
+            }
+        } else if (!sicCode.equals(other.sicCode)) {
             return false;
         }
         if (sicDescription == null) {
-            if (other.sicDescription != null){
+            if (other.sicDescription != null) {
                 return false;
             }
-        } else if (!sicDescription.equals(other.sicDescription)){
+        } else if (!sicDescription.equals(other.sicDescription)) {
             return false;
         }
         return true;
-    }    
-    
+    }
+
 }
