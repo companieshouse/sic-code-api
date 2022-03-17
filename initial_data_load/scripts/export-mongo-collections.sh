@@ -26,7 +26,7 @@ export_collection() {
     local output_file=${import_files}/${mongo_collection}.json
 
     echo "Exporting collection ${mongo_collection} to json file ${output_file}"
-    mongoexport --uri="${SIC_CODE_API_MONGO_URL}" --db "${SIC_CODE_API_DATABASE}" --collection "${mongo_collection}" --out="${output_file}"
+    mongoexport --uri="${SIC_CODE_API_MONGO_URL}" --db "${SIC_CODE_API_DATABASE}" --collection "${mongo_collection}" --jsonArray --out="${output_file}"
 }
 
 export_collection ch_economic_activity_sic_codes

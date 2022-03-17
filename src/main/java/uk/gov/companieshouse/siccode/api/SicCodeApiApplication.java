@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SicCodeApiApplication {
 
+    public static final String APPLICATION_NAME_SPACE = "sic-code-api";
+    
 	public static void main(String[] args) {
 		SpringApplication.run(SicCodeApiApplication.class, args);
 	}
