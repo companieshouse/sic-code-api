@@ -75,8 +75,10 @@ public class CombinedSicActivitiesApiModel {
         this.companiesHouseactivity = companiesHouseactivity;
     }
 
-    // Override both hashCode and equals for testing with Hamcrest matchers (hence
-    // want all data attributes)
+    /* Override both hashCode and equals for testing with Hamcrest matchers (hence
+    /  want all data attributes)
+    /  These methods were auto-generated
+    */
     @Override
     public int hashCode() {
         final int prime = 31;
