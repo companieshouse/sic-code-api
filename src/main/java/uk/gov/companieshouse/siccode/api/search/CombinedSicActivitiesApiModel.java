@@ -3,8 +3,8 @@ package uk.gov.companieshouse.siccode.api.search;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * CombinedSicActivitiesApiModel is the data model that is sent to the from the
- * api to client
+ * CombinedSicActivitiesApiModel is the data model that is sent from the
+ * api to the client
  */
 public class CombinedSicActivitiesApiModel {
 
