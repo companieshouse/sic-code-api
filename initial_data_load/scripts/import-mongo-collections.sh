@@ -22,7 +22,6 @@ script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 import_json() {
     local json_filename=$1
-    local mongo_collection=$2
 
     local json_file_full_path=${script_dir}/../import_files/${json_filename}
     if [[ ! -f "${json_file_full_path}" ]]; then  
@@ -30,8 +29,8 @@ import_json() {
         exit 1
     fi 
 
-    echo "Importing the JSON to Collection ${mongo_collection} with drop option used"
-    mongoimport --uri="${SIC_CODE_API_MONGO_URL}" --db "${SIC_CODE_API_DATABASE}" --collection "${mongo_collection}" --file "${json_file_full_path}" --drop --type=json
+    echo "Importing the JSON to Collection from file ${json_filename} with drop option used"
+    mongoimport --uri="${SIC_CODE_API_MONGO_URL}" --db "${SIC_CODE_API_DATABASE}" --file "${json_file_full_path}" --drop --jsonArray
 }
 
 import_json ch_economic_activity_sic_codes.json
