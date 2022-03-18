@@ -16,6 +16,7 @@ public class CombinedSicActivitiesStorageModel {
     @Field("_id")
     private String id;
 
+    @TextIndexed
     @Field("sic_code")
     private String sicCode;
 
@@ -26,6 +27,7 @@ public class CombinedSicActivitiesStorageModel {
     @Field("activity_description_search_field")
     private String activityDescriptionSearchField;
 
+    @TextIndexed
     @Field("sic_description")
     private String sicDescription;
 
