@@ -17,6 +17,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import uk.gov.companieshouse.api.util.security.EricConstants;
 
 import uk.gov.companieshouse.siccode.api.groups.TestType;
 
@@ -49,10 +51,10 @@ public class SicCodeControllerTest {
 
         when(mapper.storageModelToApiModel(storageModelList)).thenReturn(apiModelList);
 
-        mockMvc.perform(post("/internal/sic-code-search")
+        mockMvc.perform(addAuthentication(post("/internal/sic-code-search")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"context_id\":\"111\",\"search_string\": \"Barley Farming\", \"match_phrase\": false}")
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*].id", hasItems("10", "15")))
                 .andExpect(jsonPath("$[*].sic_code", hasItems("01110")))
@@ -67,10 +69,29 @@ public class SicCodeControllerTest {
         when(sicCodeService.search(any(SicCodeSearchRequestApiModel.class)))
                 .thenThrow(new RuntimeException("Test exception"));
 
+        mockMvc.perform(addAuthentication(post("/internal/sic-code-search")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"context_id\":\"111\",\"search_string\": \"Barley Farming\", \"match_phrase\": false}"))
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isInternalServerError());
+    }
+
+    @Test
+    @DisplayName("Return with 401 Unauthorized if unauthenticated")
+    void getReturns401IfUnauthenticated() throws Exception {
+
+
         mockMvc.perform(post("/internal/sic-code-search")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"context_id\":\"111\",\"search_string\": \"Barley Farming\", \"match_phrase\": false}")
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isInternalServerError());
+                .andExpect(status().isUnauthorized());
+    }
+
+    private MockHttpServletRequestBuilder addAuthentication(MockHttpServletRequestBuilder request) {
+        return request
+            .header(EricConstants.ERIC_IDENTITY, "test-id")
+            .header(EricConstants.ERIC_IDENTITY_TYPE, EricConstants.ERIC_IDENTITY_TYPE)
+            .header(EricConstants.ERIC_AUTHORISED_KEY_ROLES, EricConstants.ERIC_AUTHORISED_KEY_ROLES);
     }
 }

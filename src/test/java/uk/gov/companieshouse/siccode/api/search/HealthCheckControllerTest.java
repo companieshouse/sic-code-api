@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import uk.gov.companieshouse.api.util.security.EricConstants;
 import uk.gov.companieshouse.siccode.api.groups.TestType;
 
 @Tag(TestType.UNIT)
@@ -25,8 +27,16 @@ class HealthCheckControllerTest {
     @Test
     void validateIsHealthy() throws Exception {
 
-        mockMvc.perform(get("/internal/sic-code-search/healthcheck"))
+        mockMvc.perform(addAuthentication(get("/internal/sic-code-search/healthcheck")))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString(HealthCheckController.HEALTH_CHECK_MESSAGE)));
     }
+
+    private MockHttpServletRequestBuilder addAuthentication(MockHttpServletRequestBuilder request) {
+        return request
+                .header(EricConstants.ERIC_IDENTITY, "test-id")
+                .header(EricConstants.ERIC_IDENTITY_TYPE, EricConstants.ERIC_IDENTITY_TYPE)
+                .header(EricConstants.ERIC_AUTHORISED_KEY_ROLES, EricConstants.ERIC_AUTHORISED_KEY_ROLES);
+    }
+
 }
