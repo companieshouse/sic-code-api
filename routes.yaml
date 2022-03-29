@@ -3,3 +3,4 @@ group: internalapi
 weight: 929
 routes:
    1: ^/internal/sic-code-search
+   2: ^/internal/sic-code-search/healthcheck
