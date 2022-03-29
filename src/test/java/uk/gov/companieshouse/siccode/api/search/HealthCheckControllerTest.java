@@ -19,14 +19,14 @@ import uk.gov.companieshouse.siccode.api.groups.TestType;
 @WebMvcTest(controllers = HealthCheckController.class)
 class HealthCheckControllerTest {
 
-  @Autowired
-  private MockMvc mockMvc;
+    @Autowired
+    private MockMvc mockMvc;
 
-  @Test
-  void validateIsHealthy() throws Exception {
+    @Test
+    void validateIsHealthy() throws Exception {
 
-    mockMvc.perform(get("/internal/sic-code-search/healthcheck"))
-        .andExpect(status().isOk())
-        .andExpect(content().string(containsString(HealthCheckController.HEALTH_CHECK_MESSAGE)));
-  }
+        mockMvc.perform(get("/internal/sic-code-search/healthcheck"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(HealthCheckController.HEALTH_CHECK_MESSAGE)));
+    }
 }

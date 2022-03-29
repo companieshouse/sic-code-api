@@ -24,53 +24,53 @@ import uk.gov.companieshouse.siccode.api.groups.TestType;
 @WebMvcTest(controllers = SicCodeController.class)
 public class SicCodeControllerTest {
 
-  @Autowired
-  private MockMvc mockMvc;
+    @Autowired
+    private MockMvc mockMvc;
 
-  @MockBean
-  private SicCodeService sicCodeService;
+    @MockBean
+    private SicCodeService sicCodeService;
 
-  @MockBean
-  private CombinedSicActivitiesMapper mapper;
+    @MockBean
+    private CombinedSicActivitiesMapper mapper;
 
-  @Test
-  @DisplayName("Successful search with calls to service and mapper classes")
-  void successfulSearch() throws Exception {
+    @Test
+    @DisplayName("Successful search with calls to service and mapper classes")
+    void successfulSearch() throws Exception {
 
-    var storageModelList = new ArrayList<CombinedSicActivitiesStorageModel>();
-    storageModelList.add(SicCodeTestData.BARLEY_FARMING_STORAGE_MODEL);
-    storageModelList.add(SicCodeTestData.BARLEY_GROWING_STORAGE_MODEL);
+        var storageModelList = new ArrayList<CombinedSicActivitiesStorageModel>();
+        storageModelList.add(SicCodeTestData.BARLEY_FARMING_STORAGE_MODEL);
+        storageModelList.add(SicCodeTestData.BARLEY_GROWING_STORAGE_MODEL);
 
-    var apiModelList = new ArrayList<CombinedSicActivitiesApiModel>();
-    apiModelList.add(SicCodeTestData.BARLEY_FARMING_API_MODEL);
-    apiModelList.add(SicCodeTestData.BARLEY_GROWING_API_MODEL);
+        var apiModelList = new ArrayList<CombinedSicActivitiesApiModel>();
+        apiModelList.add(SicCodeTestData.BARLEY_FARMING_API_MODEL);
+        apiModelList.add(SicCodeTestData.BARLEY_GROWING_API_MODEL);
 
-    when(sicCodeService.search(any(SicCodeSearchRequestApiModel.class))).thenReturn(storageModelList);
+        when(sicCodeService.search(any(SicCodeSearchRequestApiModel.class))).thenReturn(storageModelList);
 
-    when(mapper.storageModelToApiModel(storageModelList)).thenReturn(apiModelList);
+        when(mapper.storageModelToApiModel(storageModelList)).thenReturn(apiModelList);
 
-    mockMvc.perform(post("/internal/sic-code-search")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content("{ \"context_id\":\"111\",\"search_string\": \"Barley Farming\", \"match_phrase\": false}")
-        .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$[*].id", hasItems("10", "15")))
-        .andExpect(jsonPath("$[*].sic_code", hasItems("01110")))
-        .andExpect(jsonPath("$[*].activity_description", hasItems("Barley Farming")))
-        .andExpect(jsonPath("$[*].activity_description", hasItems("Barley growing")));
-  }
+        mockMvc.perform(post("/internal/sic-code-search")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"context_id\":\"111\",\"search_string\": \"Barley Farming\", \"match_phrase\": false}")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[*].id", hasItems("10", "15")))
+                .andExpect(jsonPath("$[*].sic_code", hasItems("01110")))
+                .andExpect(jsonPath("$[*].activity_description", hasItems("Barley Farming")))
+                .andExpect(jsonPath("$[*].activity_description", hasItems("Barley growing")));
+    }
 
-  @Test
-  @DisplayName("Successful search with calls to service and mapper classes")
-  void shouldCatchUncaughtExceptionInController() throws Exception {
+    @Test
+    @DisplayName("Successful search with calls to service and mapper classes")
+    void shouldCatchUncaughtExceptionInController() throws Exception {
 
-    when(sicCodeService.search(any(SicCodeSearchRequestApiModel.class)))
-        .thenThrow(new RuntimeException("Test exception"));
+        when(sicCodeService.search(any(SicCodeSearchRequestApiModel.class)))
+                .thenThrow(new RuntimeException("Test exception"));
 
-    mockMvc.perform(post("/internal/sic-code-search")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content("{ \"context_id\":\"111\",\"search_string\": \"Barley Farming\", \"match_phrase\": false}")
-        .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isInternalServerError());
-  }
+        mockMvc.perform(post("/internal/sic-code-search")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"context_id\":\"111\",\"search_string\": \"Barley Farming\", \"match_phrase\": false}")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isInternalServerError());
+    }
 }

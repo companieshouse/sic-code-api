@@ -23,5 +23,4 @@ public class HealthCheckController {
 
         return new ResponseEntity<>(HEALTH_CHECK_MESSAGE, HttpStatus.OK);
     }
-
-} 
+}
