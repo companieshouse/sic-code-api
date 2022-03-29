@@ -91,7 +91,7 @@ public class SicCodeControllerTest {
     private MockHttpServletRequestBuilder addAuthentication(MockHttpServletRequestBuilder request) {
         return request
             .header(EricConstants.ERIC_IDENTITY, "test-id")
-            .header(EricConstants.ERIC_IDENTITY_TYPE, EricConstants.ERIC_IDENTITY_TYPE)
-            .header(EricConstants.ERIC_AUTHORISED_KEY_ROLES, EricConstants.ERIC_AUTHORISED_KEY_ROLES);
+            .header(EricConstants.ERIC_IDENTITY_TYPE, "key")
+            .header(EricConstants.ERIC_AUTHORISED_KEY_ROLES, "*");
     }
 }
