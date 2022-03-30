@@ -47,9 +47,19 @@ SIC_CODE_API_PORT                    | Application Port                         
 SIC_CODE_API_MONGO_URL               | URL to MongoDB                                                            | `mongodb://mongo:27017`
 SIC_CODE_API_DATABASE                | Name of Sic Code Mongo database                                           | sic_code
 
-## Why a free text search was used rather than a regular expression find
+## What is MongoDB full text search and why do we used it over a regular expression find
 
-The main advantage of a free text search is that you can order the results in order of relevance (this would need to be implemented manually with a regular expression file)
+MongoDB full text search allows us to search string content in our collections and return matches based on the search term we have entered. It allows us to return matched values exactly or values that match at least one word within the phrase (a word match)."
+For example, if we searched for "Barley Growing"
+ an exact match would only return "Barley Growing"
+ and a word match could return values such as "Barley Growing", "Barley Farming", "Barley Malting", "Almond Growing", "Flower Growing", etc
+
+MongoDB provides text indexes to support text search queries on string content. Text indexes can include any field whose value is a string or an array of string elements. To perform text search queries, you must have a text index on your collection. See [CombinedSicActivitiesStorageModel](src/main/java/uk/gov/companieshouse/siccode/api/search/CombinedSicActivitiesStorageModel.java) for our implementation.
+
+The indexed fields are then scored by the number of matches in a field's value. So if we search a 3 word phrase and a field's value matches 2/3 words than that will be scored higher than a match of 1/3. The matched values are sorted in order of score and returned.
+Scoring can also be adjusted by using weights. You can assign a weight(number value) to a given field which acts as a multiplier to that fields match score. So if you want a field to have a higher importantance compared to others then this can be used to facilitate that(this is not currently being used in this api).
+
+The main advantage of a full text search is that you can order the results in order of relevance (this would need to be implemented manually with a regular expression file).
 
 ## Example Curl command for using the API
 
@@ -57,14 +67,19 @@ The main advantage of a free text search is that you can order the results in or
 
 ``` bash
 # Any word
-curl -w '%{http_code}' --header "Content-Type: application/json" \
+curl -H "ERIC-Identity: 123" -H "ERIC-Identity-Type: key" -H "ERIC-Authorised-Key-Roles:*"  -w '%{http_code}' --header "Content-Type: application/json" \
   --request POST \
   --data '{"search_string": "Barley growing", "match_phrase": 'false', "context_id": "sic-code-web-155982514859810330"}' \
   http://localhost:8080/internal/sic-code-search
 
-# phrase match
-curl -w '%{http_code}' --header "Content-Type: application/json" \
+# Exact match
+curl -H "ERIC-Identity: 123" -H "ERIC-Identity-Type: key" -H "ERIC-Authorised-Key-Roles:*"  -w '%{http_code}' --header "Content-Type: application/json" \
   --request POST \
   --data '{"search_string": "Barley growing", "match_phrase": 'true', "context_id": "sic-code-web-155982514859810330"}' \
   http://localhost:8080/internal/sic-code-search
+
+  # HealthCheck
+curl -H "ERIC-Identity: 123" -H "ERIC-Identity-Type: key" -H "ERIC-Authorised-Key-Roles:*"  -w '%{http_code}' --header "Content-Type: application/json" \
+  --request GET \
+  http://localhost:8080/internal/sic-code-search/healthcheck
 ```

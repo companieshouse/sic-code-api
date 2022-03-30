@@ -21,6 +21,7 @@
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
         <apache-commons-lang.version>2.6</apache-commons-lang.version>
         <structured-logging.version>1.9.14</structured-logging.version>
+        <api-security-java.version>0.3.8</api-security-java.version>
 
         <!-- Spring General -->
         <spring.boot.version>2.6.4</spring.boot.version>
@@ -124,6 +125,12 @@
             <version>${sonar-maven-plugin.version}</version>
         </dependency>
 
+        <dependency>
+          <groupId>uk.gov.companieshouse</groupId>
+          <artifactId>api-security-java</artifactId>
+          <version>${api-security-java.version}</version>
+       </dependency>
+       
     </dependencies>
 
     <build>
