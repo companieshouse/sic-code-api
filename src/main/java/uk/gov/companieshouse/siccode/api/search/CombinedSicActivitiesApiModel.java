@@ -8,9 +8,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class CombinedSicActivitiesApiModel {
 
-    @JsonProperty("id")
-    private String id;
-
     @JsonProperty("sic_code")
     private String sicCode;
 
@@ -26,21 +23,12 @@ public class CombinedSicActivitiesApiModel {
     public CombinedSicActivitiesApiModel() {
     }
 
-    public CombinedSicActivitiesApiModel(String id, String sicCode, String activityDescription,
+    public CombinedSicActivitiesApiModel(String sicCode, String activityDescription,
             String sicDescription, boolean companiesHouseactivity) {
-        this.id = id;
         this.sicCode = sicCode;
         this.activityDescription = activityDescription;
         this.sicDescription = sicDescription;
         this.companiesHouseactivity = companiesHouseactivity;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getSicCode() {
@@ -84,7 +72,6 @@ public class CombinedSicActivitiesApiModel {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((activityDescription == null) ? 0 : activityDescription.hashCode());
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + (companiesHouseactivity ? 1231 : 1237);
         result = prime * result + ((sicCode == null) ? 0 : sicCode.hashCode());
         result = prime * result + ((sicDescription == null) ? 0 : sicDescription.hashCode());
@@ -108,13 +95,6 @@ public class CombinedSicActivitiesApiModel {
                 return false;
             }
         } else if (!activityDescription.equals(other.activityDescription)) {
-            return false;
-        }
-        if (id == null) {
-            if (other.id != null) {
-                return false;
-            }
-        } else if (!id.equals(other.id)) {
             return false;
         }
         if (companiesHouseactivity != other.companiesHouseactivity) {

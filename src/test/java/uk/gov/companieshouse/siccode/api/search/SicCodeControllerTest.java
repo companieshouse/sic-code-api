@@ -56,7 +56,6 @@ public class SicCodeControllerTest {
                 .content("{ \"context_id\":\"111\",\"search_string\": \"Barley Farming\", \"match_phrase\": false}")
                 .accept(MediaType.APPLICATION_JSON)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[*].id", hasItems("10", "15")))
                 .andExpect(jsonPath("$[*].sic_code", hasItems("01110")))
                 .andExpect(jsonPath("$[*].activity_description", hasItems("Barley Farming")))
                 .andExpect(jsonPath("$[*].activity_description", hasItems("Barley growing")));
