@@ -49,10 +49,10 @@ SIC_CODE_API_DATABASE                | Name of Sic Code Mongo database          
 
 ## What is MongoDB full text search and why do we used it over a regular expression find
 
-MongoDB full text search allows us to search string content in our collections and return matches based on the search term we have entered. It allows us to return matched values exactly or values that partially match a phrase.
+MongoDB full text search allows us to search string content in our collections and return matches based on the search term we have entered. It allows us to return matched values exactly or values that match at least one word within the phrase (a word match)."
 For example, if we searched for "Barley Growing"
  an exact match would only return "Barley Growing"
- and a partial match could return values such as "Barley Growing", "Barley Farming" and "Barley Malting".
+ and a word match could return values such as "Barley Growing", "Barley Farming", "Barley Malting", "Almond Growing", "Flower Growing", etc
 
 MongoDB provides text indexes to support text search queries on string content. Text indexes can include any field whose value is a string or an array of string elements. To perform text search queries, you must have a text index on your collection. See [CombinedSicActivitiesStorageModel](src/main/java/uk/gov/companieshouse/siccode/api/search/CombinedSicActivitiesStorageModel.java) for our implementation.
 
