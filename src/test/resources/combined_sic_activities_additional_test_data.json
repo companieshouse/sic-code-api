@@ -1,0 +1,52 @@
+[
+    {
+        "_id": {
+            "$oid": "5dd26e8277e1df3fdc227e02"
+        },
+        "sic_code": "00990",
+        "activity_description": "Mahlen von Gerste (Herstellung)",
+        "sic_description": "Getreidemahlen Landwirtschaft",
+        "is_ch_activity": false,
+        "activity_description_search_field": "mahlen von gerste herstellung"
+    },
+    {
+        "_id": {
+            "$oid": "5dd26e8277e1df3fdc227e03"
+        },
+        "sic_code": "00990",
+        "activity_description": "Getreidetrocknung",
+        "sic_description": "Getreidemahlen Landwirtschaft",
+        "is_ch_activity": false,
+        "activity_description_search_field": "getreidetrocknung"
+    },
+    {
+        "_id": {
+            "$oid": "5dd26e8277e1df3fdc227e04"
+        },
+        "sic_code": "00990",
+        "activity_description": "Anbau von Getreidekörnern, außer Reis",
+        "sic_description": "Getreidemahlen Landwirtschaft",
+        "is_ch_activity": false,
+        "activity_description_search_field": "anbau von getreidekörnern, außer reis"
+    },
+    {
+        "_id": {
+            "$oid": "5dd26e8277e1df3fdc227e05"
+        },
+        "sic_code": "00991",
+        "activity_description": "Braunkohleabbau",
+        "sic_description": "Abbau von Braunkohle",
+        "is_ch_activity": true,
+        "activity_description_search_field": "braunkohleabbau"
+    },
+    {
+        "_id": {
+            "$oid": "5dd26e8277e1df3fdc227e06"
+        },
+        "sic_code": "00991",
+        "activity_description": "Braunkohle waschen",
+        "sic_description": "Abbau von Braunkohle",
+        "is_ch_activity": false,
+        "activity_description_search_field": "braunkohle waschen"
+    }
+]
