@@ -57,7 +57,7 @@ For example, if we searched for "Barley Growing"
 MongoDB provides text indexes to support text search queries on string content. Text indexes can include any field whose value is a string or an array of string elements. To perform text search queries, you must have a text index on your collection. See [CombinedSicActivitiesStorageModel](src/main/java/uk/gov/companieshouse/siccode/api/search/CombinedSicActivitiesStorageModel.java) for our implementation.
 
 The indexed fields are then scored by the number of matches in a field's value. So if we search a 3 word phrase and a field's value matches 2/3 words than that will be scored higher than a match of 1/3. The matched values are sorted in order of score and returned.
-Scoring can also be adjusted by using weights. You can assign a weight(number value) to a given field which acts as a multiplier to that fields match score. So if you want a field to have a higher importantance compared to others then this can be used to facilitate that(this is not currently being used in this api).
+Scoring can also be adjusted by using weights. You can assign a weight(number value) to a given field which acts as a multiplier to that fields match score. So if you want a field to have a higher importance compared to others then this can be used to facilitate that(this is not currently being used in this api).
 
 The main advantage of a full text search is that you can order the results in order of relevance (this would need to be implemented manually with a regular expression file).
 
