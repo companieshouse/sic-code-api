@@ -7,7 +7,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.TextScore;
 
 /**
- * CombinedSicActivitiesStorageModel is used in the MongoDB database collection
+ * CombinedSicActivitiesStorageModel is used in the MongoDB database collection.
+ * If you change the text indecies in this class you also need to change the manually created index in the CombinedSicActivitiesRepositoryTest
  */
 @Document(collection = "combined_sic_activities")
 public class CombinedSicActivitiesStorageModel {
@@ -99,8 +100,16 @@ public class CombinedSicActivitiesStorageModel {
         this.companiesHouseactivity = companiesHouseactivity;
     }
 
+    public Float getScore() {
+        return score;
+    }
+
+    public void setScore(Float score) {
+        this.score = score;
+    }
+
     /* Override both hashCode and equals for testing with Hamcrest matchers (hence
-    /  want all data attributes)
+    /  want all data attributes except the score which is not related to the data in the repository)
     /  These methods were auto-generated
     */
     @Override
