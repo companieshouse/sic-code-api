@@ -2,6 +2,8 @@ package uk.gov.companieshouse.siccode.api.search;
 
 /**
  * SicCodeTestData - This class is used to store mock test data that is commonly used in test classes.
+ * The score is not used in unit test becuase it is a transiently value in the model object since it is obtained
+ * from a search rather than a value stored in the mongo repository
  */
 
 public class SicCodeTestData {

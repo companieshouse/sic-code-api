@@ -20,6 +20,9 @@ public class CombinedSicActivitiesApiModel {
     @JsonProperty("is_ch_activity")
     private boolean companiesHouseactivity;
 
+    @JsonProperty("search_score")
+    private Float score;
+
     public CombinedSicActivitiesApiModel() {
     }
 
@@ -61,6 +64,14 @@ public class CombinedSicActivitiesApiModel {
 
     public void setCompaniesHouseactivity(boolean companiesHouseactivity) {
         this.companiesHouseactivity = companiesHouseactivity;
+    }
+
+    public Float getScore() {
+      return score;
+    }
+
+    public void setScore(Float score) {
+      this.score = score;
     }
 
     /* Override both hashCode and equals for testing with Hamcrest matchers (hence

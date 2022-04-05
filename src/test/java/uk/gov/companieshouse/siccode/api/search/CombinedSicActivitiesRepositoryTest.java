@@ -4,6 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.ArrayList;
 
@@ -48,12 +49,25 @@ class CombinedSicActivitiesRepositoryTest {
         combinedSicActivitiesRepository.saveAll(combinedSicActivities);	
 
         // We need to create a text index for this collection so that a Text Search works (else get the error - failed with error code 27 and error message ‘text index required for $text query")
-        mongoTemplate.indexOps("combined_sic_activities").ensureIndex(TextIndexDefinition.builder().onFields("activity_description_search_field").build());
+        mongoTemplate.indexOps("combined_sic_activities").ensureIndex(TextIndexDefinition.builder().onFields("activity_description_search_field","sic_code","sic_description").build());
     }
 
     @AfterEach
     public void afterEach() {
         mongoTemplate.dropCollection(CombinedSicActivitiesStorageModel.class);
+    }
+
+    @Test
+    @DisplayName("Return results for a search by sic code and check score is not null")
+    void sicCodeSearch () {
+
+        var results = combinedSicActivitiesRepository.findAllByOrderByScore(
+            new SicCodeSearchTextCriteria("29201").getTextCriteriaMatchPhrase());
+        
+        assertEquals(1, results.size());
+        assertNotNull(results.get(0).getScore());
+
+        assertThat(results, containsInAnyOrder(SicCodeTestData.BUS_MANUFACTURE_STORAGE_MODEL));
     }
 
     @Test
@@ -63,12 +77,13 @@ class CombinedSicActivitiesRepositoryTest {
         var results = combinedSicActivitiesRepository.findAllByOrderByScore(
             new SicCodeSearchTextCriteria("Bean Growing Organic").getTextCriteriaMatchAny());
 
-        assertEquals(3, results.size());
+        assertEquals(4, results.size());
 
         // ordered assertion with contains and number of matches are 3, 2, 1
         assertThat(results, contains( SicCodeTestData.BEAN_GROWING_ORGANIC_STORAGE_MODEL,
                                       SicCodeTestData.BEAN_GROWING_STORAGE_MODEL,
-                                      SicCodeTestData.BARLEY_GROWING_STORAGE_MODEL));
+                                      SicCodeTestData.BARLEY_GROWING_STORAGE_MODEL,
+                                      SicCodeTestData.BARLEY_FARMING_STORAGE_MODEL));
     }
 
     @Test
@@ -78,10 +93,11 @@ class CombinedSicActivitiesRepositoryTest {
         var results = combinedSicActivitiesRepository.findAllByOrderByScore(
             new SicCodeSearchTextCriteria("manufacture").getTextCriteriaMatchAny());
         
-        assertEquals(2, results.size());
+        assertEquals(3, results.size());
 
         assertThat(results, containsInAnyOrder( SicCodeTestData.BARLEY_MALTING_STORAGE_MODEL,
-                                                SicCodeTestData.BUS_MANUFACTURE_STORAGE_MODEL));
+                                                SicCodeTestData.BUS_MANUFACTURE_STORAGE_MODEL,
+                                                SicCodeTestData.BEAN_GROWING_ORGANIC_STORAGE_MODEL));
     }
 
     @Test
