@@ -48,5 +48,15 @@
         "sic_description": "Abbau von Braunkohle",
         "is_ch_activity": false,
         "activity_description_search_field": "braunkohle waschen"
+    },
+    {
+        "_id": {
+            "$oid": "5dd26e8277e1df3fdc227e07"
+        },
+        "sic_code": "00992",
+        "activity_description": "Fussballverband",
+        "sic_description": "Andere sportliche Aktivitäten",
+        "is_ch_activity": false,
+        "activity_description_search_field": "fussballverband"
     }
 ]
