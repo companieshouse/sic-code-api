@@ -126,11 +126,11 @@
         </dependency>
 
         <dependency>
-          <groupId>uk.gov.companieshouse</groupId>
-          <artifactId>api-security-java</artifactId>
-          <version>${api-security-java.version}</version>
-       </dependency>
-       
+            <groupId>uk.gov.companieshouse</groupId>
+            <artifactId>api-security-java</artifactId>
+            <version>${api-security-java.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -192,6 +192,16 @@
                             <version>${org.mapstruct.version}</version>
                         </path>
                     </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.1.4</version>
+                <configuration>
+                    <container>
+                        <expandClasspathDependencies>true</expandClasspathDependencies>
+                    </container>
                 </configuration>
             </plugin>
         </plugins>
