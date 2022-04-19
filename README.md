@@ -6,7 +6,7 @@ The `sic-code-api` is an Spring Boot API for searching SIC Codes (industrial cla
 
 Within Spring Boot, Spring Data Mongo is used to simplify data access to the required Mongo collection (`combined_sic_activities`).
 
-This has a  Rest API with the following endpoints:
+This has a Rest API with the following endpoints:
 
 URL                                    | VERB | Notes
 -------------------------------------- | ---- | --------------------------------------------------------------------------
