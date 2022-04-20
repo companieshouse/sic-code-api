@@ -1,27 +1,27 @@
 {
   "openapi": "3.0.2",
   "info": {
-    "title": "sic-Code-api",
+    "title": "sic-code-api",
     "version": "1.0"
   },
   "servers": [
     {
-      "url": "http://api.chs.local/sic-code-search",
+      "url": "http://api.chs.local/internal",
       "description": "Development server"
     }
   ],
   "paths": {
-    "/search": {
+    "/sic-code-search": {
       "post": {
-        "summary": "Search for SIC code via economic activity",
+        "summary": "Search for SIC code via economic-activity/sic-description/sic-code",
         "operationId": "searchSicCodes",
         "description": "Return all matching SIC code records that correspond with the search terms. This will be ordered by most number of hits (for example, results with two keyword matches will be returned before matches with one keyword match)",
         "parameters": [
           {
             "in": "path",
             "name": "search_string",
-            "description": "A search string is one or more words that are used in a search to match words within an economic activity description. Can be single or multiple words. Mulitple words are seperated with a space",
-            "example": " 'barley' or 'barley farmer' ",
+            "description": "A search string is comprised of a single or multiple words that are used in a search to match words within an economic activity description or sic description. Mulitple words are seperated with a space. A search string can also be a full sic code which will be used to search against sic codes in the collection.",
+            "example": " 'barley' or 'barley farmer' or '23910' ",
             "schema": {
               "type": "string"
             },
@@ -29,7 +29,7 @@
           },
           {
             "in": "path",
-            "name": "match_all_words",
+            "name": "match_phrase",
             "description": "If true then only return result where all words in the search string are found",
             "schema": {
               "type": "boolean"
@@ -60,6 +60,26 @@
           }
         }
       }
+    },
+    "/sic-code-search/healthcheck": {
+      "get": {
+        "summary": "Healthcheck to determine if api is running",
+        "operationId": "healthcheck",
+        "description": "Will return a HTTP status of 200 if the api is up and running",
+        "responses": {
+          "200": {
+            "description": "Returns if the sic-code-api is running",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "sic-code-api is alive"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -68,10 +88,6 @@
         "title": "sic code",
         "type": "object",
         "properties": {
-          "_id": {
-            "type": "string",
-            "example": "62178140e8935f8bdb3c4d62"
-          },
           "sic_code": {
             "type": "string",
             "example": "47910"
@@ -80,13 +96,19 @@
             "type": "string",
             "example": "Selling on Amazon"
           },
-          "activity_description_lower_case": {
-            "type": "string",
-            "example": "selling on amazon"
-          },
           "sic_description": {
             "type": "string",
             "example": "Retail sale via mail order houses or via Internet"
+          },
+          "is_ch_activity": {
+            "type": "boolean",
+            "description": "Indicates whether sic code is present on Companies House Economic Activity list",
+            "example": true
+          },
+          "search_score": {
+            "type": "number",
+            "description": "Search score for the given sic code based on the search terms",
+            "example": 2.0625
           }
         }
       },
@@ -94,10 +116,6 @@
         "title": "api result",
         "type": "object",
         "properties": {
-          "context_id": {
-            "type": "string",
-            "example": "sic-code-web-155982514859810330"
-          },
           "sic_codes_returned": {
             "type": "array",
             "items": {
