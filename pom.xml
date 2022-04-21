@@ -130,7 +130,6 @@
             <artifactId>api-security-java</artifactId>
             <version>${api-security-java.version}</version>
         </dependency>
-
     </dependencies>
 
     <build>
