@@ -25,3 +25,6 @@ hs_err_pid*
 
 #Build Files
 target
+
+# mac files
+.DS_Store
