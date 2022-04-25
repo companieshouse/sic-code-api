@@ -9,6 +9,8 @@ In order to run the API locally, you'll need the following installed on your mac
 - [Git](https://git-scm.com/downloads)
 - [MongoDB](https://www.mongodb.com) either locally or addressable locally (at least 4.2)
 
+You also need to be on the CH Lan since this project uses jar files on a maven mirror that are part of CH private GitHub repositories.
+
 ## Instructions
 
 1. Clone the application from [Github `sic-code-api` repository](https://github.com/companieshouse/sic-code-api),
