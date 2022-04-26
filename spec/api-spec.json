@@ -13,14 +13,14 @@
   "paths": {
     "/sic-code-search": {
       "post": {
-        "summary": "Search for SIC code via economic-activity/sic-description/sic-code",
+        "summary": "Search for SIC code via economic activity/sic description/sic code",
         "operationId": "searchSicCodes",
         "description": "Return all matching SIC code records that correspond with the search terms. This will be ordered by most number of hits (for example, results with two keyword matches will be returned before matches with one keyword match)",
         "parameters": [
           {
             "in": "path",
             "name": "search_string",
-            "description": "A search string is comprised of a single or multiple words that are used in a search to match words within an economic activity description or sic description. Mulitple words are seperated with a space. A search string can also be a full sic code which will be used to search against sic codes in the collection.",
+            "description": "A search string is comprised of a single or multiple words that are used in a search to match words within an economic activity description and sic description. Mulitple words are seperated with a space. A search string can also be a full sic code which will be used to search against sic codes in the collection.",
             "example": " 'barley' or 'barley farmer' or '23910' ",
             "schema": {
               "type": "string"
@@ -30,7 +30,7 @@
           {
             "in": "path",
             "name": "match_phrase",
-            "description": "If true then only return result where all words in the search string are found",
+            "description": "If true then only return result where all words in the search string are found in the same order as present in the search string (and same whitespace between the words)",
             "schema": {
               "type": "boolean"
             },
@@ -114,14 +114,9 @@
       },
       "Result": {
         "title": "api result",
-        "type": "object",
-        "properties": {
-          "sic_codes_returned": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SicCodeFound"
-            }
-          }
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/SicCodeFound"
         }
       }
     }
