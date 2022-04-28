@@ -19,7 +19,7 @@ public class HealthCheckController {
     @GetMapping(value = "/internal/sic-code-search/healthcheck")
     public @ResponseBody ResponseEntity<String> heathCheck() {
 
-        LOG.info("Service ressponded with: " + HttpStatus.OK);
+        LOG.info("Service responded with: " + HttpStatus.OK);
 
         return new ResponseEntity<>(HEALTH_CHECK_MESSAGE, HttpStatus.OK);
     }
