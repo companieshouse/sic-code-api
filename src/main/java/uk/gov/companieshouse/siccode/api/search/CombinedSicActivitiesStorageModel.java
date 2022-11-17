@@ -1,5 +1,7 @@
 package uk.gov.companieshouse.siccode.api.search;
 
+import java.time.LocalDateTime;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -35,6 +37,9 @@ public class CombinedSicActivitiesStorageModel {
     @Field("is_ch_activity")
     private boolean companiesHouseactivity;
 
+    @Field("generation_date")
+    private LocalDateTime generationDate;
+
     // This is required for sorting the results
     @TextScore
     Float score;
@@ -43,13 +48,14 @@ public class CombinedSicActivitiesStorageModel {
     }
 
     public CombinedSicActivitiesStorageModel(String id, String sicCode, String activityDescription,
-            String activityDescriptionSearchField, String sicDescription, boolean companiesHouseactivity) {
+            String activityDescriptionSearchField, String sicDescription, boolean companiesHouseactivity, LocalDateTime generationDate) {
         this.id = id;
         this.sicCode = sicCode;
         this.activityDescription = activityDescription;
         this.activityDescriptionSearchField = activityDescriptionSearchField;
         this.sicDescription = sicDescription;
         this.companiesHouseactivity = companiesHouseactivity;
+        this.generationDate = generationDate;
     }
 
     public String getId() {
@@ -98,6 +104,14 @@ public class CombinedSicActivitiesStorageModel {
 
     public void setCompaniesHouseactivity(boolean companiesHouseactivity) {
         this.companiesHouseactivity = companiesHouseactivity;
+    }
+
+    public LocalDateTime getGenerationDate() {
+        return generationDate;
+    }
+
+    public void setGenerationDate(LocalDateTime generationDate) {
+        this.generationDate = generationDate;
     }
 
     public Float getScore() {
