@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ import uk.gov.companieshouse.siccode.api.groups.TestType;
 @TestInstance(Lifecycle.PER_METHOD)
 public class SicCodeServiceTest {
 
-    private final CombinedSicActivitiesStorageModel SEARCH_ROW = new CombinedSicActivitiesStorageModel("id", "sicCode", "activityDescription", "activityDescriptionSearchField", "sicDescription", true);
+    private final CombinedSicActivitiesStorageModel SEARCH_ROW = new CombinedSicActivitiesStorageModel("id", "sicCode", "activityDescription", "activityDescriptionSearchField", "sicDescription", true, LocalDateTime.of(2022, 1, 1, 0, 0, 0));
 
     @Mock
     private CombinedSicActivitiesRepository combinedSicActivitiesRepository;

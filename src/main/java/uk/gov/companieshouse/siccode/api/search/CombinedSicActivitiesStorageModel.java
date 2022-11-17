@@ -48,13 +48,14 @@ public class CombinedSicActivitiesStorageModel {
     }
 
     public CombinedSicActivitiesStorageModel(String id, String sicCode, String activityDescription,
-            String activityDescriptionSearchField, String sicDescription, boolean companiesHouseactivity) {
+            String activityDescriptionSearchField, String sicDescription, boolean companiesHouseactivity, LocalDateTime generationDate) {
         this.id = id;
         this.sicCode = sicCode;
         this.activityDescription = activityDescription;
         this.activityDescriptionSearchField = activityDescriptionSearchField;
         this.sicDescription = sicDescription;
         this.companiesHouseactivity = companiesHouseactivity;
+        this.generationDate = generationDate;
     }
 
     public String getId() {
