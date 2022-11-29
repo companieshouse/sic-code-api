@@ -4,6 +4,8 @@
 
 The `sic-code-api` is an Spring Boot API for searching SIC Codes (industrial classification of a company) which are stored on a Mongo database. The search uses MongoDB full-text search capabilities and can be used to search for a particular SIC Code or text contained in either the SIC Code description or Economic activity. The results are returned in order of relevance determined by the full text-search. In addition there is a filter to only return exact phrase matches.
 
+The data load is in  [Github `sic-code-data` repository](https://github.com/companieshouse/sic-code-data).
+
 Within Spring Boot, Spring Data Mongo is used to simplify data access to the required Mongo collection (`combined_sic_activities`).
 
 This has a Rest API with the following endpoints:
@@ -22,8 +24,7 @@ The data rarely changes and mainly comes from external sources and from the appl
 - [Download and run application locally](docs/download-and-run-locally.md).
 - [Use within `chs-docker-development`](docs/use-with-chs-docker-development.md).
 - [Environmental variables used](docs/environmental-variables.md).
-- [The Sic Code database](docs/sic-code-database.md) - this also covers the data in the database and it's structure.
-- [The initial data load](docs/initial-dataload.md).
+- [The Sic Code database](docs/sic-code-database.md).
 - [Full-text search](docs/full-text-search.md)
 
 ## Deployment Pipeline
