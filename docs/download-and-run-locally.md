@@ -14,7 +14,7 @@ You also need to be on the CH Lan since this project uses jar files on a maven m
 ## Instructions
 
 1. Clone the application from [Github `sic-code-api` repository](https://github.com/companieshouse/sic-code-api),
-2. Have a Mongo `sic_code` database available,
+2. Have a Mongo `sic_code` database available - this needs to point to a database that has already been created by the [Github `sic-code-data` repository](https://github.com/companieshouse/sic-code-data),
 3. Set up the required [environmental variables](./environmental-variables.md)
 4. Build the executable jar file (and run unit tests) using `make dev`
 5. Run `./start.sh`
