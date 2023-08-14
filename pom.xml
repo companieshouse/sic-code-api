@@ -30,6 +30,7 @@
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <sonar-maven-plugin.version>3.7.0.1746</sonar-maven-plugin.version>
+        <dependency-check-plugin.version>8.3.1</dependency-check-plugin.version>
     </properties>
 
     <profiles>
@@ -183,6 +184,23 @@
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>${dependency-check-plugin.version}</version>
+                <configuration>
+                    <suppressionFiles>
+                        <suppressionFile>suppress.xml</suppressionFile>
+                    </suppressionFiles>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
