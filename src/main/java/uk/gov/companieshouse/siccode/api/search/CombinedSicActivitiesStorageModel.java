@@ -140,6 +140,7 @@ public class CombinedSicActivitiesStorageModel {
     }
 
     @Override
+    @SuppressWarnings("java:S3776")  // IDE generated equals method
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
