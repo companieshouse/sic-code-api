@@ -31,7 +31,7 @@
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
         <sonar-maven-plugin.version>3.10.0.2594</sonar-maven-plugin.version>
-        <dependency-check-plugin.version>8.3.1</dependency-check-plugin.version>
+        <dependency-check-plugin.version>9.0.9</dependency-check-plugin.version>
     </properties>
 
     <profiles>
