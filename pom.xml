@@ -118,6 +118,7 @@
         <dependency>
             <groupId>de.flapdoodle.embed</groupId>
             <artifactId>de.flapdoodle.embed.mongo</artifactId>
+            <version>4.9.3</version>
             <scope>test</scope>
         </dependency>
 
@@ -169,7 +170,7 @@
                         <image>416670754337.dkr.ecr.eu-west-2.amazonaws.com/ci-corretto-build-21</image>
                     </from>
                     <to>
-                        <image>416670754337.dkr.ecr.eu-west-2.amazonaws.com/identity-verification-api</image>
+                        <image>416670754337.dkr.ecr.eu-west-2.amazonaws.com/sic-code-api</image>
                     </to>
                     <container>
                         <expandClasspathDependencies>true</expandClasspathDependencies>
