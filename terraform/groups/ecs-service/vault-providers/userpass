@@ -1,4 +1,4 @@
-variable "hashicorp_vault_username" {
+    variable "hashicorp_vault_username" {
   description = "The username used when retrieving configuration from Hashicorp Vault"
   type        = string
 }
