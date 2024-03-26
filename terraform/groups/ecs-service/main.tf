@@ -30,6 +30,7 @@ module "secrets" {
 module "ecs-service" {
   source = "git@github.com:companieshouse/terraform-modules//aws/ecs/ecs-service?ref=1.0.253"
 
+
   # Environmental configuration
   environment             = var.environment
   aws_region              = var.aws_region
@@ -44,10 +45,12 @@ module "ecs-service" {
   lb_listener_paths                 = local.lb_listener_paths
   multilb_setup                     = true
   multilb_listeners                 = {
-    "pub-api-lb": {
-      load_balancer_arn             = data.aws_lb.service_lb.arn
-      listener_arn                  = data.aws_lb_listener.service_lb_listener.arn
+    "pub-api-lb" : {
+      load_balancer_arn = data.aws_lb.service_lb.arn
+      listener_arn      = data.aws_lb_listener.service_lb_listener.arn
     }
+  }
+
   health_check_grace_period_seconds = 240
   healthcheck_healthy_threshold     = "2"
 
@@ -59,7 +62,7 @@ module "ecs-service" {
   # Docker container details
   docker_registry   = var.docker_registry
   docker_repo       = local.docker_repo
-  container_version = var.identity_verification_api_version
+  container_version = var.sic_code_api_version
   container_port    = local.container_port
 
   # Service configuration
