@@ -19,6 +19,7 @@ locals {
   application_subnet_pattern = local.stack_secrets["application_subnet_pattern"]
 
   stack_secrets   = jsondecode(data.vault_generic_secret.stack_secrets.data_json)
+  service_secrets = jsondecode(data.vault_generic_secret.service_secrets.data_json)
 
   vpc_name = local.stack_secrets["vpc_name"]
 
