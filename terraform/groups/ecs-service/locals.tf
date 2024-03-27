@@ -19,9 +19,8 @@ locals {
   application_subnet_pattern = local.stack_secrets["application_subnet_pattern"]
 
   stack_secrets   = jsondecode(data.vault_generic_secret.stack_secrets.data_json)
-  service_secrets = jsondecode(data.vault_generic_secret.service_secrets.data_json)
 
-  vpc_name = data.aws_ssm_parameter.secret[format("/%s/%s", local.name_prefix, local.vpc_name)].value
+  vpc_name = local.stack_secrets["vpc_name"]
 
   # create a map of secret name => secret arn to pass into ecs service module
   # using the trimprefix function to remove the prefixed path from the secret name
