@@ -12,7 +12,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(final InterceptorRegistry registry) {
-        registry.addInterceptor(new InternalUserInterceptor(SicCodeApiApplication.APPLICATION_NAME_SPACE));
+        registry.addInterceptor(new InternalUserInterceptor(SicCodeApiApplication.APPLICATION_NAME_SPACE)).excludePathPatterns("/*/healthcheck");
         registry.addInterceptor(new LoggingInterceptor());
     }
 }
