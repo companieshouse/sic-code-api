@@ -27,7 +27,7 @@ class HealthCheckControllerTest {
     @Test
     void validateIsHealthy() throws Exception {
 
-        mockMvc.perform(addAuthentication(get("/internal/sic-code-search/healthcheck")))
+        mockMvc.perform(get("/internal/sic-code-search/healthcheck"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString(HealthCheckController.HEALTH_CHECK_MESSAGE)));
     }
