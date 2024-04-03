@@ -31,11 +31,4 @@ class HealthCheckControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString(HealthCheckController.HEALTH_CHECK_MESSAGE)));
     }
-
-    private MockHttpServletRequestBuilder addAuthentication(MockHttpServletRequestBuilder request) {
-        return request
-            .header(EricConstants.ERIC_IDENTITY, "test-id")
-            .header(EricConstants.ERIC_IDENTITY_TYPE, "key")
-            .header(EricConstants.ERIC_AUTHORISED_KEY_ROLES, "*");
-    }
 }
