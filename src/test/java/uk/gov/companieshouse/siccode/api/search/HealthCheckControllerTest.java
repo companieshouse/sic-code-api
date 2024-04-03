@@ -27,15 +27,8 @@ class HealthCheckControllerTest {
     @Test
     void validateIsHealthy() throws Exception {
 
-        mockMvc.perform(addAuthentication(get("/internal/sic-code-search/healthcheck")))
+        mockMvc.perform(get("/internal/sic-code-search/healthcheck"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString(HealthCheckController.HEALTH_CHECK_MESSAGE)));
-    }
-
-    private MockHttpServletRequestBuilder addAuthentication(MockHttpServletRequestBuilder request) {
-        return request
-            .header(EricConstants.ERIC_IDENTITY, "test-id")
-            .header(EricConstants.ERIC_IDENTITY_TYPE, "key")
-            .header(EricConstants.ERIC_AUTHORISED_KEY_ROLES, "*");
     }
 }
