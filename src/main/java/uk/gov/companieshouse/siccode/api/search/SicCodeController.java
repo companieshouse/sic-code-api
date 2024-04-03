@@ -29,7 +29,7 @@ public class SicCodeController {
         this.mapper = mapper;
     }
     
-    @PostMapping(value = "/internal/sic-code-search")
+    @PostMapping(value = "/internal/sic-code-search/search")
     @ResponseStatus(HttpStatus.OK)
     public List<CombinedSicActivitiesApiModel> post(
         @RequestBody SicCodeSearchRequestApiModel searchModel){

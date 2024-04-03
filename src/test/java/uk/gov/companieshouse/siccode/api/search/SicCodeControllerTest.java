@@ -51,7 +51,7 @@ public class SicCodeControllerTest {
 
         when(mapper.storageModelToApiModel(storageModelList)).thenReturn(apiModelList);
 
-        mockMvc.perform(addAuthentication(post("/internal/sic-code-search")
+        mockMvc.perform(addAuthentication(post("/internal/sic-code-search/search")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"context_id\":\"111\",\"search_string\": \"Barley Farming\", \"match_phrase\": false}")
                 .accept(MediaType.APPLICATION_JSON)))
@@ -68,7 +68,7 @@ public class SicCodeControllerTest {
         when(sicCodeService.search(any(SicCodeSearchRequestApiModel.class)))
                 .thenThrow(new RuntimeException("Test exception"));
 
-        mockMvc.perform(addAuthentication(post("/internal/sic-code-search")
+        mockMvc.perform(addAuthentication(post("/internal/sic-code-search/search")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"context_id\":\"111\",\"search_string\": \"Barley Farming\", \"match_phrase\": false}"))
                 .accept(MediaType.APPLICATION_JSON))
@@ -80,7 +80,7 @@ public class SicCodeControllerTest {
     void getReturns401IfUnauthenticated() throws Exception {
 
 
-        mockMvc.perform(post("/internal/sic-code-search")
+        mockMvc.perform(post("/internal/sic-code-search/search")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"context_id\":\"111\",\"search_string\": \"Barley Farming\", \"match_phrase\": false}")
                 .accept(MediaType.APPLICATION_JSON))
