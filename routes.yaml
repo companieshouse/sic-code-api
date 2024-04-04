@@ -1,6 +1,0 @@
-app_name: sic-code-api
-group: internalapi
-weight: 929
-routes:
-   1: ^/internal/sic-code-search
-   2: ^/internal/sic-code-search/healthcheck
