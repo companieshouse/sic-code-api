@@ -12,7 +12,7 @@ This has a Rest API with the following endpoints:
 
 URL                                    | VERB | Notes
 -------------------------------------- | ---- | --------------------------------------------------------------------------
-`/internal/sic-code-search`            | POST | This uses a text search to search for SIC Codes (with an option to do an "match phrase"). See [Full-text search](docs/full-text-search.md) for more details of this search.
+`/internal/sic-code-search/search`            | POST | This uses a text search to search for SIC Codes (with an option to do an "match phrase"). See [Full-text search](docs/full-text-search.md) for more details of this search.
 `/internal/sic-code-search/heathcheck` | GET  | This endpoint just returns a 200 Status code and "sic-code-api is alive" response
 
 See the [OpenAPI Specification](spec/api-spec.json) which defines the HTTP responses and JSON returns for all methods in the API.

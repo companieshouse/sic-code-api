@@ -26,13 +26,13 @@ You also need to be on the CH Lan since this project uses jar files on a maven m
 curl -H "ERIC-Identity: 123" -H "ERIC-Identity-Type: key" -H "ERIC-Authorised-Key-Roles:*"  -w '%{http_code}' --header "Content-Type: application/json" \
   --request POST \
   --data '{"search_string": "Barley growing", "match_phrase": 'false', "context_id": "sic-code-web-155982514859810330"}' \
-  http://localhost:${SIC_CODE_API_PORT}/internal/sic-code-search
+  http://localhost:${SIC_CODE_API_PORT}/internal/sic-code-search/search
 
 # Exact match
 curl -H "ERIC-Identity: 123" -H "ERIC-Identity-Type: key" -H "ERIC-Authorised-Key-Roles:*"  -w '%{http_code}' --header "Content-Type: application/json" \
   --request POST \
   --data '{"search_string": "Barley growing", "match_phrase": 'true', "context_id": "sic-code-web-155982514859810330"}' \
-  http://localhost:${SIC_CODE_API_PORT}/internal/sic-code-search
+  http://localhost:${SIC_CODE_API_PORT}/internal/sic-code-search/search
 
   # HealthCheck
 curl -H "ERIC-Identity: 123" -H "ERIC-Identity-Type: key" -H "ERIC-Authorised-Key-Roles:*"  -w '%{http_code}' --header "Content-Type: application/json" \
