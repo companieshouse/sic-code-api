@@ -42,4 +42,4 @@ See `https://ci-platform.companieshouse.gov.uk/teams/team-development/pipelines/
 
 ## Release to staging and live
 
-This follows the standard process for ECS applications and is manually released in staging and live with instructions provided in a release note about what concourse task need to be run with any extra requirements if needed..
+This follows the standard process for ECS applications and is manually released in staging and live with instructions provided in a release note with what concourse tasks need to be run and any extra requirements if needed.
