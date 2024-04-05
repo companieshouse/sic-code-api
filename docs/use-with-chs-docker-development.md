@@ -13,5 +13,11 @@ This returns data on the small data set within `docker-chs-development`.
 ``` bash
 curl -H  "Authorization: ${CHS_DOCKER_INTERNAL_API_KEY}"  -w '%{http_code}' --header "Content-Type: application/json"  \
     --request POST   --data '{"search_string": "Barley growing", "match_phrase": 'false', "context_id": "sic-code-web-155982514859810330"}'  \
-     http://api.chs.local:4001/internal/sic-code-search
+     http://api.chs.local:4001/internal/sic-code-search/search
+```
+
+``` bash
+curl -H  "Authorization: ${CHS_DOCKER_INTERNAL_API_KEY}"  -w '%{http_code}' --header "Content-Type: application/json"  \
+    --request GET \
+     http://api.chs.local:4001/internal/sic-code-search/healthcheck
 ```

@@ -29,10 +29,10 @@ The data rarely changes and mainly comes from external sources and from the appl
 
 ## Deployment Pipeline
 
-This application is deployed to the team and development Meso Marathon environments using concourse and after deploying automated tests using karate are run. Since the database is read only then the concourse task for refreshing this is manual.
+This application is deployed to ECS development environments using concourse and after automated tests using karate are run. Since the database is read only then the concourse task for refreshing this is manual.
 
-See `https://ci.platform.aws.chdev.org/teams/team-pa/pipelines/sic-code-api` for the pipeline in action.
+See `https://ci-platform.companieshouse.gov.uk/teams/team-development/pipelines/sic-code-api` for the pipeline in action.
 
 ## Release to staging and live
 
-This follows the standard process for Meso Marathon applications and is manually released in staging and live with instructions provided in a release note.
+This follows the standard process for ECS applications and is manually released in staging and live with instructions provided in a release note about what concourse task need to be run with any extra requirements if needed..
