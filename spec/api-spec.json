@@ -11,7 +11,7 @@
     }
   ],
   "paths": {
-    "/sic-code-search": {
+    "/sic-code-search/search": {
       "post": {
         "summary": "Search for SIC code via economic activity/sic description/sic code",
         "operationId": "searchSicCodes",

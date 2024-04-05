@@ -19,9 +19,16 @@ See the [OpenAPI Specification](spec/api-spec.json) which defines the HTTP respo
 
 The data rarely changes and mainly comes from external sources and from the application point of view is "read only". The Mongo import files are kept within this Git Repository.
 
+## Development Requirements
+
+In order to build (`make clean build`) the service and run unit tests (`make test`) you will need the following:
+
+- [Java 21](https://www.oracle.com/java/technologies/downloads/#java21)
+- [Maven](https://maven.apache.org/download.cgi)
+- [Git](https://git-scm.com/downloads)
+
 ## Guides
 
-- [Download and run application locally](docs/download-and-run-locally.md).
 - [Use within `chs-docker-development`](docs/use-with-chs-docker-development.md).
 - [Environmental variables used](docs/environmental-variables.md).
 - [The Sic Code database](docs/sic-code-database.md).
@@ -29,10 +36,10 @@ The data rarely changes and mainly comes from external sources and from the appl
 
 ## Deployment Pipeline
 
-This application is deployed to the team and development Meso Marathon environments using concourse and after deploying automated tests using karate are run. Since the database is read only then the concourse task for refreshing this is manual.
+This application is deployed to ECS development environments using terraform and concourse and after automated tests using karate are run. Since the database is read only then the concourse task for refreshing this is manual.
 
-See `https://ci.platform.aws.chdev.org/teams/team-pa/pipelines/sic-code-api` for the pipeline in action.
+See `https://ci-platform.companieshouse.gov.uk/teams/team-development/pipelines/sic-code-api` for the pipeline in action.
 
 ## Release to staging and live
 
-This follows the standard process for Meso Marathon applications and is manually released in staging and live with instructions provided in a release note.
+This follows the standard process for ECS applications and is manually released in staging and live with instructions provided in a release note with what concourse tasks need to be run and any extra requirements if needed.
