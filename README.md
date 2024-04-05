@@ -36,7 +36,7 @@ In order to build (`make clean build`) the service and run unit tests (`make tes
 
 ## Deployment Pipeline
 
-This application is deployed to ECS development environments using concourse and after automated tests using karate are run. Since the database is read only then the concourse task for refreshing this is manual.
+This application is deployed to ECS development environments using terraform and concourse and after automated tests using karate are run. Since the database is read only then the concourse task for refreshing this is manual.
 
 See `https://ci-platform.companieshouse.gov.uk/teams/team-development/pipelines/sic-code-api` for the pipeline in action.
 
