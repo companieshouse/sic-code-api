@@ -19,6 +19,14 @@ See the [OpenAPI Specification](spec/api-spec.json) which defines the HTTP respo
 
 The data rarely changes and mainly comes from external sources and from the application point of view is "read only". The Mongo import files are kept within this Git Repository.
 
+## Development Requirements
+
+In order to build (`make clean build`) the service and run unit tests (`make test`) you will need the following:
+
+- [Java 21](https://www.oracle.com/java/technologies/downloads/#java21)
+- [Maven](https://maven.apache.org/download.cgi)
+- [Git](https://git-scm.com/downloads)
+
 ## Guides
 
 - [Download and run application locally](docs/download-and-run-locally.md).
