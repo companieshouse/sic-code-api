@@ -29,7 +29,6 @@ In order to build (`make clean build`) the service and run unit tests (`make tes
 
 ## Guides
 
-- [Download and run application locally](docs/download-and-run-locally.md).
 - [Use within `chs-docker-development`](docs/use-with-chs-docker-development.md).
 - [Environmental variables used](docs/environmental-variables.md).
 - [The Sic Code database](docs/sic-code-database.md).
