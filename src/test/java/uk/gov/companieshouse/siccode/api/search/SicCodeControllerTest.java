@@ -57,7 +57,7 @@ class SicCodeControllerTest {
 
         mockMvc.perform(addAuthentication(post("/internal/sic-code-search/search")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{ \"context_id\":\"111\",\"search_string\": \"Barley Farming\", \"match_phrase\": false}")
+                .content("{ \"search_string\": \"Barley Farming\", \"match_phrase\": false}")
                 .accept(MediaType.APPLICATION_JSON)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*].sic_code", hasItems("01110")))
@@ -74,7 +74,7 @@ class SicCodeControllerTest {
 
         mockMvc.perform(addAuthentication(post("/internal/sic-code-search/search")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{ \"context_id\":\"111\",\"search_string\": \"Barley Farming\", \"match_phrase\": false}"))
+                .content("{ \"search_string\": \"Barley Farming\", \"match_phrase\": false}"))
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isInternalServerError());
     }
@@ -85,7 +85,7 @@ class SicCodeControllerTest {
 
         mockMvc.perform(post("/internal/sic-code-search/search")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{ \"context_id\":\"111\",\"search_string\": \"Barley Farming\", \"match_phrase\": false}")
+                .content("{ \"111\",\"search_string\": \"Barley Farming\", \"match_phrase\": false}")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized());
     }
