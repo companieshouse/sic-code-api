@@ -2,6 +2,7 @@ package uk.gov.companieshouse.siccode.api.search;
 
 import static org.hamcrest.Matchers.hasItems;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -24,7 +25,10 @@ import uk.gov.companieshouse.siccode.api.groups.TestType;
 
 @Tag(TestType.UNIT)
 @WebMvcTest(controllers = SicCodeController.class)
-public class SicCodeControllerTest {
+class SicCodeControllerTest {
+
+    private static final String X_REQUEST_ID = "your-request-id";
+    private static final String ERIC_REQUEST_ID_KEY = "X-Request-Id";
 
     @Autowired
     private MockMvc mockMvc;
@@ -47,13 +51,13 @@ public class SicCodeControllerTest {
         apiModelList.add(SicCodeTestData.BARLEY_FARMING_API_MODEL);
         apiModelList.add(SicCodeTestData.BARLEY_GROWING_API_MODEL);
 
-        when(sicCodeService.search(any(SicCodeSearchRequestApiModel.class))).thenReturn(storageModelList);
+        when(sicCodeService.search(eq(X_REQUEST_ID), any(SicCodeSearchRequestApiModel.class))).thenReturn(storageModelList);
 
         when(mapper.storageModelToApiModel(storageModelList)).thenReturn(apiModelList);
 
         mockMvc.perform(addAuthentication(post("/internal/sic-code-search/search")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{ \"context_id\":\"111\",\"search_string\": \"Barley Farming\", \"match_phrase\": false}")
+                .content("{ \"search_string\": \"Barley Farming\", \"match_phrase\": false}")
                 .accept(MediaType.APPLICATION_JSON)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*].sic_code", hasItems("01110")))
@@ -62,15 +66,15 @@ public class SicCodeControllerTest {
     }
 
     @Test
-    @DisplayName("Successful search with calls to service and mapper classes")
+    @DisplayName("catching runtime exception")
     void shouldCatchUncaughtExceptionInController() throws Exception {
 
-        when(sicCodeService.search(any(SicCodeSearchRequestApiModel.class)))
+        when(sicCodeService.search(eq(X_REQUEST_ID), any(SicCodeSearchRequestApiModel.class)))
                 .thenThrow(new RuntimeException("Test exception"));
 
         mockMvc.perform(addAuthentication(post("/internal/sic-code-search/search")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{ \"context_id\":\"111\",\"search_string\": \"Barley Farming\", \"match_phrase\": false}"))
+                .content("{ \"search_string\": \"Barley Farming\", \"match_phrase\": false}"))
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isInternalServerError());
     }
@@ -79,16 +83,16 @@ public class SicCodeControllerTest {
     @DisplayName("Return with 401 Unauthorized if unauthenticated")
     void getReturns401IfUnauthenticated() throws Exception {
 
-
         mockMvc.perform(post("/internal/sic-code-search/search")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{ \"context_id\":\"111\",\"search_string\": \"Barley Farming\", \"match_phrase\": false}")
+                .content("{ \"111\",\"search_string\": \"Barley Farming\", \"match_phrase\": false}")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized());
     }
 
     private MockHttpServletRequestBuilder addAuthentication(MockHttpServletRequestBuilder request) {
         return request
+            .header(ERIC_REQUEST_ID_KEY, X_REQUEST_ID)
             .header(EricConstants.ERIC_IDENTITY, "test-id")
             .header(EricConstants.ERIC_IDENTITY_TYPE, "key")
             .header(EricConstants.ERIC_AUTHORISED_KEY_ROLES, "*");

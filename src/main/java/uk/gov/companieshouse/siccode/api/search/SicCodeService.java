@@ -26,7 +26,7 @@ public class SicCodeService {
         this.combinedSicActivitiesRepository = combinedSicActivitiesRepository;
     }
 
-    public  List<CombinedSicActivitiesStorageModel> search(SicCodeSearchRequestApiModel sicCodeSearchRequestApiModel) {
+    public  List<CombinedSicActivitiesStorageModel> search(String xRequestId, SicCodeSearchRequestApiModel sicCodeSearchRequestApiModel) {
 
         var searchString = sicCodeSearchRequestApiModel.getSearchString();
         if (StringUtils.isEmpty(searchString)) {
@@ -43,7 +43,7 @@ public class SicCodeService {
 
         var combinedSicActivityOrderedResults = combinedSicActivitiesRepository.findAllByOrderByScore(criteria);
 
-        LOG.infoContext(sicCodeSearchRequestApiModel.getContextId(), "Search Complete", dataMap(sicCodeSearchRequestApiModel,combinedSicActivityOrderedResults));
+        LOG.infoContext(xRequestId, "Search Complete", dataMap(sicCodeSearchRequestApiModel,combinedSicActivityOrderedResults));
 
         return combinedSicActivityOrderedResults;
     }

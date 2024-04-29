@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import uk.gov.companieshouse.api.util.security.EricConstants;
 import uk.gov.companieshouse.siccode.api.groups.TestType;
 
 @Tag(TestType.UNIT)

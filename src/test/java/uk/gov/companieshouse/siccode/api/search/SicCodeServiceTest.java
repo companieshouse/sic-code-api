@@ -25,7 +25,9 @@ import uk.gov.companieshouse.siccode.api.groups.TestType;
 @Tag(TestType.UNIT)
 @ExtendWith(MockitoExtension.class)
 @TestInstance(Lifecycle.PER_METHOD)
-public class SicCodeServiceTest {
+class SicCodeServiceTest {
+
+    private static final String REQUEST_ID = "123";
 
     private final CombinedSicActivitiesStorageModel SEARCH_ROW = new CombinedSicActivitiesStorageModel("id", "sicCode", "activityDescription", "activityDescriptionSearchField", "sicDescription", true, LocalDateTime.of(2022, 1, 1, 0, 0, 0));
 
@@ -42,7 +44,7 @@ public class SicCodeServiceTest {
         var emptySearchRequest = new SicCodeSearchRequestApiModel();
         emptySearchRequest.setSearchString("  ");
 
-        var results = sicCodeService.search(emptySearchRequest);
+        var results = sicCodeService.search(REQUEST_ID, emptySearchRequest);
 
         assertEquals(0, results.size());
     }
@@ -59,7 +61,7 @@ public class SicCodeServiceTest {
         expectedResults.add(SEARCH_ROW);
         when(combinedSicActivitiesRepository.findAllByOrderByScore(any(TextCriteria.class))).thenReturn( expectedResults);
 
-        var actualResults = sicCodeService.search(anySearchRequest);
+        var actualResults = sicCodeService.search(REQUEST_ID, anySearchRequest);
 
         assertEquals(1, actualResults.size());
         assertTrue(actualResults.contains(SEARCH_ROW));
@@ -77,7 +79,7 @@ public class SicCodeServiceTest {
         expectedResults.add(SEARCH_ROW);
         when(combinedSicActivitiesRepository.findAllByOrderByScore(any(TextCriteria.class))).thenReturn( expectedResults);
 
-        var actualResults = sicCodeService.search(phraseSearchRequest);
+        var actualResults = sicCodeService.search(REQUEST_ID, phraseSearchRequest);
 
         assertEquals(1, actualResults.size());
         assertTrue(actualResults.contains(SEARCH_ROW));

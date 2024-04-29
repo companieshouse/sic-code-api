@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,11 +33,12 @@ public class SicCodeController {
     @PostMapping(value = "/internal/sic-code-search/search")
     @ResponseStatus(HttpStatus.OK)
     public List<CombinedSicActivitiesApiModel> post(
-        @RequestBody SicCodeSearchRequestApiModel searchModel){
+        @RequestBody SicCodeSearchRequestApiModel searchModel, 
+        @RequestHeader(value = "X-Request-Id",required = true) String xRequestId){
 
-            LOG.info("context_id: " + searchModel.getContextId() + ", search_string: " + searchModel.getSearchString());
+            LOG.infoContext(xRequestId, "using search_string: " + searchModel.getSearchString(), null);
 
-           return mapper.storageModelToApiModel(sicCodeService.search(searchModel));
+           return mapper.storageModelToApiModel(sicCodeService.search(xRequestId, searchModel));
     }
 
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
