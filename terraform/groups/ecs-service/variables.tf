@@ -32,6 +32,11 @@ variable "desired_task_count" {
   description = "The desired ECS task count for this service"
   default     = 1 # defaulted low for dev environments, override for production if required
 }
+variable "min_task_count" {
+  type        = number
+  description = "The maximum number of tasks for this service."
+  default     = 2
+}
 variable "max_task_count" {
   type        = number
   description = "The maximum number of tasks for this service."

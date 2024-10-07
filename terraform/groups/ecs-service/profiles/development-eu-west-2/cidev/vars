@@ -1,5 +1,7 @@
 environment = "cidev"
 aws_profile = "development-eu-west-2"
+desired_task_count = 1
+min_task_count = 1
 max_task_count = 3
 # service configs
 log_level = "debug"
