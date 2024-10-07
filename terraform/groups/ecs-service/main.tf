@@ -69,6 +69,7 @@ module "ecs-service" {
   service_name                       = local.service_name
   name_prefix                        = local.name_prefix
   desired_task_count                 = var.desired_task_count
+  min_task_count                     = var.min_task_count
   max_task_count                     = var.max_task_count
   required_cpus                      = var.required_cpus
   required_memory                    = var.required_memory
