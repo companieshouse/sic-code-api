@@ -4,8 +4,7 @@
     <parent>
         <groupId>uk.gov.companieshouse</groupId>
         <artifactId>companies-house-parent</artifactId>
-        <version>2.1.6</version>
-        <!-- Skip the local file search and directly search the parent POM in Maven repositories-->
+        <version>2.1.11</version>
         <relativePath />
     </parent>
     <groupId>uk.gov.companieshouse.siccode</groupId>
