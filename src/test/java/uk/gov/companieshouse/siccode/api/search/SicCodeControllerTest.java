@@ -4,12 +4,17 @@ import static org.hamcrest.Matchers.hasItems;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static uk.gov.companieshouse.siccode.api.search.SicCodeTestData.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -88,6 +93,30 @@ class SicCodeControllerTest {
                 .content("{ \"111\",\"search_string\": \"Barley Farming\", \"match_phrase\": false}")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    @DisplayName("Should return all condensed sic codes")
+    void shouldReturnAllCondensedSicCodes() throws Exception {
+
+        List<CombinedSicActivitiesStorageModel> storageModelList = Arrays.asList(ARMOURED_CAR_SERVICES_STORAGE_MODEL, BARLEY_FARMING_STORAGE_MODEL,
+                BARLEY_GROWING_STORAGE_MODEL, BARLEY_MALTING_STORAGE_MODEL, BEAN_GROWING_STORAGE_MODEL, BEAN_GROWING_ORGANIC_STORAGE_MODEL,
+                BUS_MANUFACTURE_STORAGE_MODEL);
+
+        List<CondensedSicActivitiesApiModel> apiCondensedModelList = Arrays.asList(BARLEY_FARMING_CONDENSED_API_MODEL,
+                BARLEY_FARMING_CONDENSED_API_MODEL, BARLEY_GROWING_CONDENSED_API_MODEL, BEAN_GROWING_CONDENSED_API_MODEL,
+                BEAN_GROWING_ORGANIC_CONDENSED_API_MODEL, BUS_MANUFACTURE_CONDENSED_API_MODEL,
+                ARMOURED_CAR_SERVICES_CONDENSED_API_MODEL);
+
+
+        when(sicCodeService.getAll()).thenReturn(storageModelList);
+
+        when(mapper.storageModelListToCondensedApiModelList(storageModelList)).thenReturn(apiCondensedModelList);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        mockMvc.perform(addAuthentication(get("/internal/condensed-sic-codes"))).andExpect(status().isOk())
+                .andExpect(content().json(objectMapper.writeValueAsString(apiCondensedModelList)));
     }
 
     private MockHttpServletRequestBuilder addAuthentication(MockHttpServletRequestBuilder request) {

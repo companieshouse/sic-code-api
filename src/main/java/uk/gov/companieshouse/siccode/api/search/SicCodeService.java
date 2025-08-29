@@ -48,6 +48,10 @@ public class SicCodeService {
         return combinedSicActivityOrderedResults;
     }
 
+    public List<CombinedSicActivitiesStorageModel> getAll() {
+        return combinedSicActivitiesRepository.findAll();
+    }
+
     private Map<String, Object> dataMap(SicCodeSearchRequestApiModel sicCodeSearchRequestApiModel,
             List<CombinedSicActivitiesStorageModel> combinedSicActivityOrderedResults) {
                 Map<String, Object> result = new LinkedHashMap<>();
