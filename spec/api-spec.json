@@ -11,6 +11,27 @@
     }
   ],
   "paths": {
+    "/condensed-sic-codes": {
+      "get": {
+        "summary": "Return a list of all the current SIC Codes in condensed format",
+        "operationId": "",
+        "description": "Return a list of all the current SIC Codes in condensed format, i.e. {sic_code: \"sic code\", sic_description: \"sic description\"}",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "sic codes retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/CondensedSicResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/sic-code-search/search": {
       "post": {
         "summary": "Search for SIC code via economic activity/sic description/sic code",
@@ -117,6 +138,27 @@
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/SicCodeFound"
+        }
+      },
+      "CondensedSicResult": {
+        "title": "api result",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/CondensedSicCode"
+        }
+      },
+      "CondensedSicCode" : {
+        "title": "condensed sic code",
+        "type": "object",
+        "properties": {
+          "sic_code": {
+            "type": "string",
+            "example": "47910"
+          },
+          "sic_description": {
+            "type": "string",
+            "example": "Selling on Amazon"
+          }
         }
       }
     }

@@ -4,12 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
@@ -41,10 +36,17 @@ public class SicCodeController {
            return mapper.storageModelToApiModel(sicCodeService.search(xRequestId, searchModel));
     }
 
+    @GetMapping(value = "/internal/condensed-sic-codes", produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    public List<CondensedSicActivitiesApiModel> getCondensedSicCodes() {
+        LOG.info("Requesting full list of condensed SIC Code data");
+
+        return mapper.storageModelListToCondensedApiModelList(sicCodeService.getAll());
+    }
+
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public void uncaughtException(Exception e) {
-
         LOG.error("Something unexpected has occurred: " + e.getMessage(), e);
     }
 
