@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
+
 import uk.gov.companieshouse.siccode.api.groups.TestType;
 
 import java.util.ArrayList;
