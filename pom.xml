@@ -76,6 +76,12 @@
             <groupId>uk.gov.companieshouse</groupId>
             <artifactId>structured-logging</artifactId>
             <version>${structured-logging.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-lang</groupId>
+                    <artifactId>commons-lang</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -88,6 +94,13 @@
         <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${apache-commons-lang.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+            <scope>runtime</scope>
         </dependency>
 
         <dependency>
@@ -125,6 +138,12 @@
             <groupId>org.sonarsource.scanner.maven</groupId>
             <artifactId>sonar-maven-plugin</artifactId>
             <version>${sonar-maven-plugin.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-lang</groupId>
+                    <artifactId>commons-lang</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
