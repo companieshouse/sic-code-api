@@ -18,7 +18,7 @@
         <included.tests>unit-test</included.tests>
 
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
-        <apache-commons-lang.version>2.6</apache-commons-lang.version>
+        <apache-commons-lang.version>3.18.0</apache-commons-lang.version>
         <structured-logging.version>3.0.3</structured-logging.version>
         <api-security-java.version>2.0.3</api-security-java.version>
         <jib-maven-plugin.version>3.3.2</jib-maven-plugin.version>
@@ -84,10 +84,9 @@
             <version>${org.mapstruct.version}</version>
         </dependency>
 
-        <!-- needed to add this for CH structured logging (errors on v3 of this linrary-->
         <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
+        <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
             <version>${apache-commons-lang.version}</version>
         </dependency>
 
