@@ -17,20 +17,20 @@
 
         <included.tests>unit-test</included.tests>
 
-        <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
-        <apache-commons-lang.version>2.6</apache-commons-lang.version>
-        <structured-logging.version>3.0.3</structured-logging.version>
-        <api-security-java.version>2.0.3</api-security-java.version>
+        <org.mapstruct.version>1.6.3</org.mapstruct.version>
+        <apache-commons-lang.version>3.18.0</apache-commons-lang.version>
+        <structured-logging.version>3.0.37</structured-logging.version>
+        <api-security-java.version>2.0.14</api-security-java.version>
         <jib-maven-plugin.version>3.3.2</jib-maven-plugin.version>
         <flapdoodle.version>4.9.3</flapdoodle.version>
 
         <!-- Spring General -->
-        <spring.boot.version>3.2.3</spring.boot.version>
+        <spring.boot.version>3.4.9</spring.boot.version>
 
         <!-- Maven -->
-        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-        <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
-        <sonar-maven-plugin.version>3.10.0.2594</sonar-maven-plugin.version>
+        <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>3.5.1</maven-surefire-plugin.version>
+        <sonar-maven-plugin.version>5.2.0.4988</sonar-maven-plugin.version>
         <sonar.java.binaries>${project.basedir}/target,${project.basedir}/target/*</sonar.java.binaries>
     </properties>
 
@@ -76,19 +76,31 @@
             <groupId>uk.gov.companieshouse</groupId>
             <artifactId>structured-logging</artifactId>
             <version>${structured-logging.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-lang</groupId>
+                    <artifactId>commons-lang</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
             <version>${org.mapstruct.version}</version>
+            
         </dependency>
 
-        <!-- needed to add this for CH structured logging (errors on v3 of this linrary-->
         <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
+        <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
             <version>${apache-commons-lang.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+            <version>1.26.0</version>
         </dependency>
 
         <dependency>
@@ -101,6 +113,12 @@
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>6.2.11</version>
         </dependency>
 
         <dependency>
@@ -126,6 +144,18 @@
             <groupId>org.sonarsource.scanner.maven</groupId>
             <artifactId>sonar-maven-plugin</artifactId>
             <version>${sonar-maven-plugin.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-lang</groupId>
+                    <artifactId>commons-lang</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.12.0</version>
         </dependency>
 
         <dependency>

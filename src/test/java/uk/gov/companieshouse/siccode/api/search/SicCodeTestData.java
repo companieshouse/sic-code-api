@@ -31,27 +31,49 @@ public class SicCodeTestData {
     public final static CombinedSicActivitiesStorageModel BUS_MANUFACTURE_STORAGE_MODEL = new CombinedSicActivitiesStorageModel("40", "29201", "Body for bus (manufacture)",
     "body for bus manufacture", "Manufacture of bodies (coachwork) for motor vehicles (except caravans)", false, LocalDateTime.of(2022, 1, 1, 0, 0, 0));
 
-    
+
 
     public final static CombinedSicActivitiesApiModel BARLEY_FARMING_API_MODEL = new CombinedSicActivitiesApiModel("01110", "Barley Farming",
-    "Growing of cereals except rice, leguminous crops and oil seeds", false);
+            "Growing of cereals except rice, leguminous crops and oil seeds", false);
 
     public final static CombinedSicActivitiesApiModel BARLEY_GROWING_API_MODEL = new CombinedSicActivitiesApiModel("01110", "Barley growing",
-    "Growing of cereals except rice, leguminous crops and oil seeds", false);
+            "Growing of cereals except rice, leguminous crops and oil seeds", false);
 
     public final static CombinedSicActivitiesApiModel BEAN_GROWING_ORGANIC_API_MODEL = new CombinedSicActivitiesApiModel("01110", "Bean growing organic",
-    "Growing of cereals except rice, leguminous crops and oil seeds and manufacture", false);
+            "Growing of cereals except rice, leguminous crops and oil seeds and manufacture", false);
 
     public final static CombinedSicActivitiesApiModel BEAN_GROWING_API_MODEL = new CombinedSicActivitiesApiModel("01110", "Bean growing",
-    "Growing of cereals except rice, leguminous crops and oil seeds", false);
+            "Growing of cereals except rice, leguminous crops and oil seeds", false);
 
     public final static CombinedSicActivitiesApiModel ARMOURED_CAR_SERVICES_API_MODEL= new CombinedSicActivitiesApiModel("80100", "Armoured car services",
-    "public security activities", false);
+            "public security activities", false);
 
     public final static CombinedSicActivitiesApiModel BARLEY_MALTING_API_MODEL = new CombinedSicActivitiesApiModel("11060", "Barley malting (manufacture)",
-    "Manufacture of malt", false);
+            "Manufacture of malt", false);
 
     public final static CombinedSicActivitiesApiModel BUS_MANUFACTURE_API_MODEL = new CombinedSicActivitiesApiModel("29201", "Body for bus (manufacture)",
-    "Manufacture of bodies (coachwork) for motor vehicles (except caravans)", false);
+            "Manufacture of bodies (coachwork) for motor vehicles (except caravans)", false);
+
+
+    public final static CondensedSicActivitiesApiModel BARLEY_FARMING_CONDENSED_API_MODEL
+            = new CondensedSicActivitiesApiModel("01110", "Barley Farming");
+
+    public final static CondensedSicActivitiesApiModel BARLEY_GROWING_CONDENSED_API_MODEL
+            = new CondensedSicActivitiesApiModel("01110", "Barley growing");
+
+    public final static CondensedSicActivitiesApiModel BEAN_GROWING_ORGANIC_CONDENSED_API_MODEL
+            = new CondensedSicActivitiesApiModel("01110", "Bean growing organic");
+
+    public final static CondensedSicActivitiesApiModel BEAN_GROWING_CONDENSED_API_MODEL
+            = new CondensedSicActivitiesApiModel("01110", "Bean growing");
+
+    public final static CondensedSicActivitiesApiModel ARMOURED_CAR_SERVICES_CONDENSED_API_MODEL
+            = new CondensedSicActivitiesApiModel("80100", "Armoured car services");
+
+    public final static CondensedSicActivitiesApiModel BARLEY_MALTING_CONDENSED_API_MODEL
+            = new CondensedSicActivitiesApiModel("11060", "Barley malting (manufacture)");
+
+    public final static CondensedSicActivitiesApiModel BUS_MANUFACTURE_CONDENSED_API_MODEL
+            = new CondensedSicActivitiesApiModel("29201", "Body for bus (manufacture)");
 
 }

@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
@@ -29,7 +30,8 @@ class SicCodeServiceTest {
 
     private static final String REQUEST_ID = "123";
 
-    private final CombinedSicActivitiesStorageModel SEARCH_ROW = new CombinedSicActivitiesStorageModel("id", "sicCode", "activityDescription", "activityDescriptionSearchField", "sicDescription", true, LocalDateTime.of(2022, 1, 1, 0, 0, 0));
+    private final CombinedSicActivitiesStorageModel
+            SEARCH_ROW = new CombinedSicActivitiesStorageModel("id", "sicCode", "activityDescription", "activityDescriptionSearchField", "sicDescription", true, LocalDateTime.of(2022, 1, 1, 0, 0, 0));
 
     @Mock
     private CombinedSicActivitiesRepository combinedSicActivitiesRepository;
@@ -80,6 +82,18 @@ class SicCodeServiceTest {
         when(combinedSicActivitiesRepository.findAllByOrderByScore(any(TextCriteria.class))).thenReturn( expectedResults);
 
         var actualResults = sicCodeService.search(REQUEST_ID, phraseSearchRequest);
+
+        assertEquals(1, actualResults.size());
+        assertTrue(actualResults.contains(SEARCH_ROW));
+    }
+
+    @Test
+    @DisplayName("Get full list of all the sic codes in the repository")
+    void findAll() {
+
+        when(combinedSicActivitiesRepository.findAll()).thenReturn( Collections.singletonList(SEARCH_ROW));
+
+        var actualResults = sicCodeService.getAll();
 
         assertEquals(1, actualResults.size());
         assertTrue(actualResults.contains(SEARCH_ROW));

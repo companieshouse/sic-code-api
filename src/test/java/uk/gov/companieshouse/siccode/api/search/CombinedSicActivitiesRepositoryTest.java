@@ -128,4 +128,11 @@ class CombinedSicActivitiesRepositoryTest {
         assertThat(results, containsInAnyOrder(SicCodeTestData.BARLEY_FARMING_STORAGE_MODEL));
     }
 
+    @Test
+    @DisplayName("Test that all SIC Codes are returned with findAll")
+    void checkFindAllReturnsAllSicCodes() {
+        var results = combinedSicActivitiesRepository.findAll();
+
+        assertEquals(7, results.size());
+    }
 }
