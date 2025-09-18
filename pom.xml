@@ -17,20 +17,20 @@
 
         <included.tests>unit-test</included.tests>
 
-        <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
+        <org.mapstruct.version>1.6.3</org.mapstruct.version>
         <apache-commons-lang.version>3.18.0</apache-commons-lang.version>
-        <structured-logging.version>3.0.3</structured-logging.version>
-        <api-security-java.version>2.0.3</api-security-java.version>
+        <structured-logging.version>3.0.37</structured-logging.version>
+        <api-security-java.version>2.0.10</api-security-java.version>
         <jib-maven-plugin.version>3.3.2</jib-maven-plugin.version>
         <flapdoodle.version>4.9.3</flapdoodle.version>
 
         <!-- Spring General -->
-        <spring.boot.version>3.2.3</spring.boot.version>
+        <spring.boot.version>3.4.5</spring.boot.version>
 
         <!-- Maven -->
-        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-        <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
-        <sonar-maven-plugin.version>3.10.0.2594</sonar-maven-plugin.version>
+        <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>3.5.1</maven-surefire-plugin.version>
+        <sonar-maven-plugin.version>4.0.0.4121</sonar-maven-plugin.version>
         <sonar.java.binaries>${project.basedir}/target,${project.basedir}/target/*</sonar.java.binaries>
     </properties>
 
@@ -88,19 +88,13 @@
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
             <version>${org.mapstruct.version}</version>
+            
         </dependency>
 
         <dependency>
         <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${apache-commons-lang.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>2.6</version>
-            <scope>runtime</scope>
         </dependency>
 
         <dependency>
