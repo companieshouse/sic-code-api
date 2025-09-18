@@ -20,17 +20,17 @@
         <org.mapstruct.version>1.6.3</org.mapstruct.version>
         <apache-commons-lang.version>3.18.0</apache-commons-lang.version>
         <structured-logging.version>3.0.37</structured-logging.version>
-        <api-security-java.version>2.0.10</api-security-java.version>
+        <api-security-java.version>2.0.14</api-security-java.version>
         <jib-maven-plugin.version>3.3.2</jib-maven-plugin.version>
         <flapdoodle.version>4.9.3</flapdoodle.version>
 
         <!-- Spring General -->
-        <spring.boot.version>3.4.5</spring.boot.version>
+        <spring.boot.version>3.4.9</spring.boot.version>
 
         <!-- Maven -->
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>3.5.1</maven-surefire-plugin.version>
-        <sonar-maven-plugin.version>4.0.0.4121</sonar-maven-plugin.version>
+        <sonar-maven-plugin.version>5.2.0.4988</sonar-maven-plugin.version>
         <sonar.java.binaries>${project.basedir}/target,${project.basedir}/target/*</sonar.java.binaries>
     </properties>
 

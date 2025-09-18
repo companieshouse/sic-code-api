@@ -4,6 +4,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
+import org.springframework.boot.test.context.SpringBootTest;
+
 import uk.gov.companieshouse.siccode.api.groups.TestType;
 
 import java.util.ArrayList;
@@ -14,10 +16,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@Tag(TestType.UNIT)
+@SpringBootTest
 public class CombinedSicActivitiesMapperTest {
  
-    private CombinedSicActivitiesMapper mapper = Mappers.getMapper(CombinedSicActivitiesMapper.class);
+    private CombinedSicActivitiesMapper mapper;
 
     @Test
     @DisplayName("Check That List Of StorageModels Map To List Of ApiModels")
