@@ -18,6 +18,10 @@ curl -H  "Authorization: ${CHS_DOCKER_INTERNAL_API_KEY}"  -w '%{http_code}' --he
 
 ``` bash
 curl -H  "Authorization: ${CHS_DOCKER_INTERNAL_API_KEY}"  -w '%{http_code}' --header "Content-Type: application/json"  \
-    --request GET \
+     http://api.chs.local:4001/internal/condensed-sic-codes
+```
+
+``` bash
+curl -H  "Authorization: ${CHS_DOCKER_INTERNAL_API_KEY}"  -w '%{http_code}' --header "Content-Type: application/json"  \
      http://api.chs.local:4001/internal/sic-code-search/healthcheck
 ```
