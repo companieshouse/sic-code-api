@@ -9,7 +9,7 @@ locals {
   docker_repo                = "sic-code-api"
   kms_alias                  = "alias/${var.aws_profile}/environment-services-kms"
   lb_listener_rule_priority  = 21
-  lb_listener_paths          = ["/internal/sic-code-search/*"]
+  lb_listener_paths          = ["/internal/sic-code-search/*", "/internal/condensed-sic-codes"]
   healthcheck_path           = "/internal/sic-code-search/healthcheck" #healthcheck path for sic-code-api
   healthcheck_matcher        = "200"
   s3_config_bucket           = data.vault_generic_secret.shared_s3.data["config_bucket_name"]
