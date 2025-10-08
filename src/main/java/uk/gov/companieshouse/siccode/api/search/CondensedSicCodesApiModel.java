@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Objects;
 
-public class CondensedSicActivitiesApiModel {
+public class CondensedSicCodesApiModel {
 
     @JsonProperty("sic_code")
     private String sicCode;
@@ -12,9 +12,9 @@ public class CondensedSicActivitiesApiModel {
     @JsonProperty("sic_description")
     private String sicDescription;
 
-    public CondensedSicActivitiesApiModel() {}
+    public CondensedSicCodesApiModel() {}
 
-    public CondensedSicActivitiesApiModel(String sicCode, String sicDescription) {
+    public CondensedSicCodesApiModel(String sicCode, String sicDescription) {
         this.sicCode = sicCode;
         this.sicDescription = sicDescription;
     }
@@ -39,7 +39,7 @@ public class CondensedSicActivitiesApiModel {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CondensedSicActivitiesApiModel that = (CondensedSicActivitiesApiModel) o;
+        CondensedSicCodesApiModel that = (CondensedSicCodesApiModel) o;
         return Objects.equals(sicCode, that.sicCode) && Objects.equals(sicDescription, that.sicDescription);
     }
 

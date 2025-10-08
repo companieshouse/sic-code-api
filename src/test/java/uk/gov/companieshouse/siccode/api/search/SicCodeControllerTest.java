@@ -6,29 +6,43 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static uk.gov.companieshouse.siccode.api.search.SicCodeTestData.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static uk.gov.companieshouse.siccode.api.search.SicCodeTestData.ARMOURED_CAR_SERVICES_CONDENSED_API_MODEL;
+import static uk.gov.companieshouse.siccode.api.search.SicCodeTestData.ARMOURED_CAR_SERVICES_CONDENSED_STORAGE_MODEL;
+import static uk.gov.companieshouse.siccode.api.search.SicCodeTestData.BARLEY_FARMING_CONDENSED_API_MODEL;
+import static uk.gov.companieshouse.siccode.api.search.SicCodeTestData.BARLEY_FARMING_CONDENSED_STORAGE_MODEL;
+import static uk.gov.companieshouse.siccode.api.search.SicCodeTestData.BARLEY_GROWING_CONDENSED_API_MODEL;
+import static uk.gov.companieshouse.siccode.api.search.SicCodeTestData.BARLEY_GROWING_CONDENSED_STORAGE_MODEL;
+import static uk.gov.companieshouse.siccode.api.search.SicCodeTestData.BARLEY_MALTING_CONDENSED_STORAGE_MODEL;
+import static uk.gov.companieshouse.siccode.api.search.SicCodeTestData.BEAN_GROWING_CONDENSED_API_MODEL;
+import static uk.gov.companieshouse.siccode.api.search.SicCodeTestData.BEAN_GROWING_CONDENSED_STORAGE_MODEL;
+import static uk.gov.companieshouse.siccode.api.search.SicCodeTestData.BEAN_GROWING_ORGANIC_CONDENSED_API_MODEL;
+import static uk.gov.companieshouse.siccode.api.search.SicCodeTestData.BEAN_GROWING_ORGANIC_CONDENSED_STORAGE_MODEL;
+import static uk.gov.companieshouse.siccode.api.search.SicCodeTestData.BUS_MANUFACTURE_CONDENSED_API_MODEL;
+import static uk.gov.companieshouse.siccode.api.search.SicCodeTestData.BUS_MANUFACTURE_CONDENSED_STORAGE_MODEL;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import uk.gov.companieshouse.api.util.security.EricConstants;
+import uk.gov.companieshouse.siccode.api.groups.TestType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import uk.gov.companieshouse.api.util.security.EricConstants;
-
-import uk.gov.companieshouse.siccode.api.groups.TestType;
-
 @Tag(TestType.UNIT)
+@ExtendWith(MockitoExtension.class)
 @WebMvcTest(controllers = SicCodeController.class)
 class SicCodeControllerTest {
 
@@ -38,11 +52,14 @@ class SicCodeControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @MockitoBean
     private SicCodeService sicCodeService;
 
-    @MockBean
+    @MockitoBean
     private CombinedSicActivitiesMapper mapper;
+
+    @MockitoBean
+    private CondensedSicCodesMapper condensedSicCodesMapper;
 
     @Test
     @DisplayName("Successful search with calls to service and mapper classes")
@@ -99,19 +116,19 @@ class SicCodeControllerTest {
     @DisplayName("Should return all condensed sic codes")
     void shouldReturnAllCondensedSicCodes() throws Exception {
 
-        List<CombinedSicActivitiesStorageModel> storageModelList = Arrays.asList(ARMOURED_CAR_SERVICES_STORAGE_MODEL, BARLEY_FARMING_STORAGE_MODEL,
-                BARLEY_GROWING_STORAGE_MODEL, BARLEY_MALTING_STORAGE_MODEL, BEAN_GROWING_STORAGE_MODEL, BEAN_GROWING_ORGANIC_STORAGE_MODEL,
-                BUS_MANUFACTURE_STORAGE_MODEL);
+        List<CondensedSicCodesStorageModel> storageModelList = Arrays.asList(ARMOURED_CAR_SERVICES_CONDENSED_STORAGE_MODEL, BARLEY_FARMING_CONDENSED_STORAGE_MODEL,
+                BARLEY_GROWING_CONDENSED_STORAGE_MODEL, BARLEY_MALTING_CONDENSED_STORAGE_MODEL, BEAN_GROWING_CONDENSED_STORAGE_MODEL, BEAN_GROWING_ORGANIC_CONDENSED_STORAGE_MODEL,
+                BUS_MANUFACTURE_CONDENSED_STORAGE_MODEL);
 
-        List<CondensedSicActivitiesApiModel> apiCondensedModelList = Arrays.asList(BARLEY_FARMING_CONDENSED_API_MODEL,
+        List<CondensedSicCodesApiModel> apiCondensedModelList = Arrays.asList(BARLEY_FARMING_CONDENSED_API_MODEL,
                 BARLEY_FARMING_CONDENSED_API_MODEL, BARLEY_GROWING_CONDENSED_API_MODEL, BEAN_GROWING_CONDENSED_API_MODEL,
                 BEAN_GROWING_ORGANIC_CONDENSED_API_MODEL, BUS_MANUFACTURE_CONDENSED_API_MODEL,
                 ARMOURED_CAR_SERVICES_CONDENSED_API_MODEL);
 
 
-        when(sicCodeService.getAll()).thenReturn(storageModelList);
+        when(sicCodeService.retrieveCondensedSicCodes()).thenReturn(storageModelList);
 
-        when(mapper.storageModelListToCondensedApiModelList(storageModelList)).thenReturn(apiCondensedModelList);
+        when(condensedSicCodesMapper.storageModelListToApiModelList(storageModelList)).thenReturn(apiCondensedModelList);
 
         ObjectMapper objectMapper = new ObjectMapper();
 
