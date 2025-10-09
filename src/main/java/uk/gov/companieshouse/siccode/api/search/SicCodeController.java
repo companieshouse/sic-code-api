@@ -18,11 +18,15 @@ public class SicCodeController {
     private final SicCodeService sicCodeService;
 
     private final CombinedSicActivitiesMapper mapper;
-    
+
+    private final CondensedSicCodesMapper condensedSicCodesMapper;
+
     @Autowired
-    public SicCodeController(SicCodeService sicCodeService, CombinedSicActivitiesMapper mapper) {
+    public SicCodeController(SicCodeService sicCodeService, CombinedSicActivitiesMapper mapper,
+                             CondensedSicCodesMapper condensedSicCodesMapper) {
         this.sicCodeService = sicCodeService;
         this.mapper = mapper;
+        this.condensedSicCodesMapper = condensedSicCodesMapper;
     }
     
     @PostMapping(value = "/internal/sic-code-search/search")
@@ -38,10 +42,10 @@ public class SicCodeController {
 
     @GetMapping(value = "/internal/condensed-sic-codes", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public List<CondensedSicActivitiesApiModel> getCondensedSicCodes() {
+    public List<CondensedSicCodesApiModel> getCondensedSicCodes() {
         LOG.info("Requesting full list of condensed SIC Code data");
 
-        return mapper.storageModelListToCondensedApiModelList(sicCodeService.getAll());
+        return condensedSicCodesMapper.storageModelListToApiModelList(sicCodeService.retrieveCondensedSicCodes());
     }
 
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)

@@ -1,12 +1,22 @@
 package uk.gov.companieshouse.siccode.api.search;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static uk.gov.companieshouse.siccode.api.search.SicCodeTestData.ARMOURED_CAR_SERVICES_CONDENSED_STORAGE_MODEL;
+import static uk.gov.companieshouse.siccode.api.search.SicCodeTestData.BARLEY_FARMING_CONDENSED_STORAGE_MODEL;
+import static uk.gov.companieshouse.siccode.api.search.SicCodeTestData.BARLEY_GROWING_CONDENSED_STORAGE_MODEL;
+import static uk.gov.companieshouse.siccode.api.search.SicCodeTestData.BARLEY_MALTING_CONDENSED_STORAGE_MODEL;
+import static uk.gov.companieshouse.siccode.api.search.SicCodeTestData.BEAN_GROWING_CONDENSED_STORAGE_MODEL;
+import static uk.gov.companieshouse.siccode.api.search.SicCodeTestData.BEAN_GROWING_ORGANIC_CONDENSED_STORAGE_MODEL;
+import static uk.gov.companieshouse.siccode.api.search.SicCodeTestData.BUS_MANUFACTURE_CONDENSED_STORAGE_MODEL;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,6 +45,9 @@ class SicCodeServiceTest {
 
     @Mock
     private CombinedSicActivitiesRepository combinedSicActivitiesRepository;
+
+    @Mock
+    private CondensedSicCodesRepository condensedSicCodesRepository;
 
     @InjectMocks
     private SicCodeService sicCodeService;
@@ -98,4 +111,21 @@ class SicCodeServiceTest {
         assertEquals(1, actualResults.size());
         assertTrue(actualResults.contains(SEARCH_ROW));
     }
+
+    @Test
+    @DisplayName("Retrieve all condensed SIC Codes in the repository")
+    void retrieve() {
+        List<CondensedSicCodesStorageModel> storageModelList = Arrays.asList(ARMOURED_CAR_SERVICES_CONDENSED_STORAGE_MODEL, BARLEY_FARMING_CONDENSED_STORAGE_MODEL,
+                BARLEY_GROWING_CONDENSED_STORAGE_MODEL, BARLEY_MALTING_CONDENSED_STORAGE_MODEL, BEAN_GROWING_ORGANIC_CONDENSED_STORAGE_MODEL,
+                BUS_MANUFACTURE_CONDENSED_STORAGE_MODEL);
+
+        when(condensedSicCodesRepository.findAll()).thenReturn(storageModelList);
+        List<CondensedSicCodesStorageModel> retreivedCondensedSicCodesStorageModelList = sicCodeService.retrieveCondensedSicCodes();
+
+        assertNotNull(retreivedCondensedSicCodesStorageModelList);
+        assertEquals(storageModelList, retreivedCondensedSicCodesStorageModelList);
+        assertEquals(6, retreivedCondensedSicCodesStorageModelList.size());
+        assertFalse(retreivedCondensedSicCodesStorageModelList.contains(BEAN_GROWING_CONDENSED_STORAGE_MODEL));
+    }
+
 }

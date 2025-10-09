@@ -20,10 +20,13 @@ public class SicCodeService {
     private static final Logger LOG = LoggerFactory.getLogger(SicCodeApiApplication.APPLICATION_NAME_SPACE);
     
     private final CombinedSicActivitiesRepository combinedSicActivitiesRepository;
-    
+    private final CondensedSicCodesRepository condensedSicCodesRepository;
+
     @Autowired
-    public SicCodeService(CombinedSicActivitiesRepository combinedSicActivitiesRepository) {
+    public SicCodeService(CombinedSicActivitiesRepository combinedSicActivitiesRepository,
+                          CondensedSicCodesRepository condensedSicCodesRepository) {
         this.combinedSicActivitiesRepository = combinedSicActivitiesRepository;
+        this.condensedSicCodesRepository = condensedSicCodesRepository;
     }
 
     public  List<CombinedSicActivitiesStorageModel> search(String xRequestId, SicCodeSearchRequestApiModel sicCodeSearchRequestApiModel) {
@@ -50,6 +53,10 @@ public class SicCodeService {
 
     public List<CombinedSicActivitiesStorageModel> getAll() {
         return combinedSicActivitiesRepository.findAll();
+    }
+
+    public List<CondensedSicCodesStorageModel> retrieveCondensedSicCodes() {
+        return condensedSicCodesRepository.findAll();
     }
 
     private Map<String, Object> dataMap(SicCodeSearchRequestApiModel sicCodeSearchRequestApiModel,

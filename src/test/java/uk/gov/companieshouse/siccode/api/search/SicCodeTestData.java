@@ -55,25 +55,47 @@ public class SicCodeTestData {
             "Manufacture of bodies (coachwork) for motor vehicles (except caravans)", false);
 
 
-    public final static CondensedSicActivitiesApiModel BARLEY_FARMING_CONDENSED_API_MODEL
-            = new CondensedSicActivitiesApiModel("01110", "Barley Farming");
+    public final static CondensedSicCodesStorageModel BARLEY_FARMING_CONDENSED_STORAGE_MODEL
+            = new CondensedSicCodesStorageModel("01110", "01110", "Barley Farming");
 
-    public final static CondensedSicActivitiesApiModel BARLEY_GROWING_CONDENSED_API_MODEL
-            = new CondensedSicActivitiesApiModel("01110", "Barley growing");
+    public final static CondensedSicCodesStorageModel BARLEY_GROWING_CONDENSED_STORAGE_MODEL
+            = new CondensedSicCodesStorageModel("01111", "01111", "Barley growing");
 
-    public final static CondensedSicActivitiesApiModel BEAN_GROWING_ORGANIC_CONDENSED_API_MODEL
-            = new CondensedSicActivitiesApiModel("01110", "Bean growing organic");
+    public final static CondensedSicCodesStorageModel BEAN_GROWING_ORGANIC_CONDENSED_STORAGE_MODEL
+            = new CondensedSicCodesStorageModel("01112", "01112", "Bean growing organic");
 
-    public final static CondensedSicActivitiesApiModel BEAN_GROWING_CONDENSED_API_MODEL
-            = new CondensedSicActivitiesApiModel("01110", "Bean growing");
+    public final static CondensedSicCodesStorageModel BEAN_GROWING_CONDENSED_STORAGE_MODEL
+            = new CondensedSicCodesStorageModel("01113", "01113", "Bean growing");
 
-    public final static CondensedSicActivitiesApiModel ARMOURED_CAR_SERVICES_CONDENSED_API_MODEL
-            = new CondensedSicActivitiesApiModel("80100", "Armoured car services");
+    public final static CondensedSicCodesStorageModel ARMOURED_CAR_SERVICES_CONDENSED_STORAGE_MODEL
+            = new CondensedSicCodesStorageModel("80100", "80100", "Armoured car services");
 
-    public final static CondensedSicActivitiesApiModel BARLEY_MALTING_CONDENSED_API_MODEL
-            = new CondensedSicActivitiesApiModel("11060", "Barley malting (manufacture)");
+    public final static CondensedSicCodesStorageModel BARLEY_MALTING_CONDENSED_STORAGE_MODEL
+            = new CondensedSicCodesStorageModel("11060", "11060", "Barley malting (manufacture)");
 
-    public final static CondensedSicActivitiesApiModel BUS_MANUFACTURE_CONDENSED_API_MODEL
-            = new CondensedSicActivitiesApiModel("29201", "Body for bus (manufacture)");
+    public final static CondensedSicCodesStorageModel BUS_MANUFACTURE_CONDENSED_STORAGE_MODEL
+            = new CondensedSicCodesStorageModel("29201", "29201", "Body for bus (manufacture)");
+
+
+    public final static CondensedSicCodesApiModel BARLEY_FARMING_CONDENSED_API_MODEL
+            = new CondensedSicCodesApiModel("01110", "Barley Farming");
+
+    public final static CondensedSicCodesApiModel BARLEY_GROWING_CONDENSED_API_MODEL
+            = new CondensedSicCodesApiModel("01111", "Barley growing");
+
+    public final static CondensedSicCodesApiModel BEAN_GROWING_ORGANIC_CONDENSED_API_MODEL
+            = new CondensedSicCodesApiModel("01112", "Bean growing organic");
+
+    public final static CondensedSicCodesApiModel BEAN_GROWING_CONDENSED_API_MODEL
+            = new CondensedSicCodesApiModel("01113", "Bean growing");
+
+    public final static CondensedSicCodesApiModel ARMOURED_CAR_SERVICES_CONDENSED_API_MODEL
+            = new CondensedSicCodesApiModel("80100", "Armoured car services");
+
+    public final static CondensedSicCodesApiModel BARLEY_MALTING_CONDENSED_API_MODEL
+            = new CondensedSicCodesApiModel("11060", "Barley malting (manufacture)");
+
+    public final static CondensedSicCodesApiModel BUS_MANUFACTURE_CONDENSED_API_MODEL
+            = new CondensedSicCodesApiModel("29201", "Body for bus (manufacture)");
 
 }
